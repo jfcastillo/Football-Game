@@ -112,7 +112,7 @@ public class Mapa{
 		BufferedReader br = new BufferedReader(new FileReader(new File("./resources/mapas/nivel1.txt")));
 		String line = "";
 		while ((line = br.readLine()) != null) {
-			System.out.println(line);
+//			System.out.println(line);
 			leerLineaDeMapa(line, contadorLineas);
 			contadorLineas++;
 		}
@@ -175,7 +175,7 @@ public class Mapa{
 
 		if (o != null) {
 			if (o instanceof Bloque) {
-				System.out.println("BLOQUE");
+//				System.out.println("BLOQUE");
 				agregarObjeto(primerObjetoMapa, (Bloque) o);
 			}
 

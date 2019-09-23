@@ -32,6 +32,9 @@ public class Cliente {
 	
 	private int direccionMovimiento;
 	
+	private String id;
+	private boolean idRecibido;
+	
 	private VentanaPrincipal vPrincipal;
 	
 	/**
@@ -40,10 +43,11 @@ public class Cliente {
 	 */
 	
 	public Cliente(VentanaPrincipal vPrincipal) {
-		
+		id = "";
 		this.vPrincipal = vPrincipal;
 		
 		direccionMovimiento = 0;
+		idRecibido = false;
 		try {
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader( System.in));
@@ -83,9 +87,19 @@ public class Cliente {
 	                while (true) { 
 	                    try { 
 	                        // read the message sent to this client 
-	                        String msg = in.readUTF(); 
-	                        recibirDatos(msg);
-	                        System.out.println(msg); 
+	                    	
+	                    	if(!idRecibido) {
+	                    		id = in.readUTF();
+	                    		idRecibido= true;
+	                    		System.out.println(id);
+	                    	
+	                    	}
+	                    	else {
+	                    		String msg = in.readUTF(); 
+	                    		recibirDatos(msg);
+	                    		System.out.println(msg); 
+	                    		
+	                    	}
 	                    } catch (IOException e) { 
 	  
 	                        e.printStackTrace(); 

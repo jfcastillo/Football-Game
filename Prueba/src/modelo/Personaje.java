@@ -48,6 +48,8 @@ public class Personaje extends Imagen implements Movible{
 
 	private int vida;
 	private int puntos;
+	
+	private int id;
 
 	/**
 	 * @param posicionX
@@ -61,6 +63,7 @@ public class Personaje extends Imagen implements Movible{
 		mueveAbajo = false;
 		mueveIzquierda = false;
 		mueveDerecha = false;
+		id = 0;
 
 	//	lanzandoHabilidad = false;
 
