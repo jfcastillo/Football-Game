@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import hilos.HiloColisionJugador;
 import modelo.Ball;
+import modelo.Cliente;
 import modelo.Mapa;
 //import modelo.Partida;
 import modelo.Personaje;
@@ -22,6 +23,8 @@ public class VentanaPrincipal extends JFrame {
 
 	private PanelJuego panelJuego;
 	private PanelFondo panelFondo;
+	
+	private Cliente cliente;
 	
 	/**
 	 * Constante que representa el nombre del juego
@@ -47,6 +50,7 @@ public class VentanaPrincipal extends JFrame {
 	 * los atributos y relaciones.
 	 */
 	public VentanaPrincipal() {
+		cliente = new Cliente();
 		setMinimumSize(new Dimension(ANCHO, ALTURA));
 		setMaximumSize(new Dimension(ANCHO, ALTURA));
 		setPreferredSize(new Dimension(ANCHO, ALTURA));
@@ -110,6 +114,12 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public void moverJugador(int direccion) {
 		juego.mover(direccion);
+		try {
+			cliente.enviarDatos(direccion+"");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		refrescar();
 	}
 
@@ -121,7 +131,9 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	
 
-	
+	public void recibirPosicones() {
+		moverJugador(cliente.getDireccionMovimiento());
+	}
 
 	public void iniciarHilos() {
 		iniciarColisionJugador();
