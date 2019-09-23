@@ -50,7 +50,7 @@ public class VentanaPrincipal extends JFrame {
 	 * los atributos y relaciones.
 	 */
 	public VentanaPrincipal() {
-		cliente = new Cliente();
+		cliente = new Cliente(this);
 		setMinimumSize(new Dimension(ANCHO, ALTURA));
 		setMaximumSize(new Dimension(ANCHO, ALTURA));
 		setPreferredSize(new Dimension(ANCHO, ALTURA));
@@ -115,7 +115,7 @@ public class VentanaPrincipal extends JFrame {
 	public void moverJugador(int direccion) {
 		juego.mover(direccion);
 		try {
-			cliente.enviarDatos(direccion+"");
+			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,8 +131,11 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	
 
-	public void recibirPosicones() {
-		moverJugador(cliente.getDireccionMovimiento());
+	public void recibirPosicones(String cadena) {
+		String arr[] = cadena.split(" ");
+		darPersonaje().setPosicionX(Integer.parseInt(arr[0]));
+		darPersonaje().setPosicionY(Integer.parseInt(arr[1]));
+		refrescar();
 	}
 
 	public void iniciarHilos() {

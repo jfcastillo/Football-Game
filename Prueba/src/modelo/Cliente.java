@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import interfaz.VentanaPrincipal;
+
 public class Cliente {
 	
 	/*
@@ -30,12 +32,16 @@ public class Cliente {
 	
 	private int direccionMovimiento;
 	
+	private VentanaPrincipal vPrincipal;
+	
 	/**
 	 * Main
 	 * @param args
 	 */
 	
-	public Cliente() {
+	public Cliente(VentanaPrincipal vPrincipal) {
+		
+		this.vPrincipal = vPrincipal;
 		
 		direccionMovimiento = 0;
 		try {
@@ -53,20 +59,20 @@ public class Cliente {
 			out = new DataOutputStream(socket.getOutputStream());
 									
 			// sendMessage thread 
-	        Thread sendMessage = new Thread(new Runnable()  
-	        { 
-	            @Override
-	            public void run() { 
-	                while (true) { 
-	                    try { 
-		                    String msg = br.readLine();
-	                        out.writeUTF(msg); 
-	                    } catch (IOException e) { 
-	                        e.printStackTrace(); 
-	                    } 
-	                } 
-	            } 
-	        }); 
+//	        Thread sendMessage = new Thread(new Runnable()  
+//	        { 
+//	            @Override
+//	            public void run() { 
+//	                while (true) { 
+//	                    try { 
+//		                    String msg = br.readLine();
+//	                        out.writeUTF(msg); 
+//	                    } catch (IOException e) { 
+//	                        e.printStackTrace(); 
+//	                    } 
+//	                } 
+//	            } 
+//	        }); 
 	          
 	        // readMessage thread 
 	        Thread readMessage = new Thread(new Runnable()  
@@ -88,7 +94,7 @@ public class Cliente {
 	            } 
 	        }); 
 	  
-	        sendMessage.start(); 
+//	        sendMessage.start(); 
 	        readMessage.start(); 
 		
 	        /*
@@ -112,7 +118,8 @@ public class Cliente {
 	}
 	
 	public void recibirDatos(String cadena) {
-		direccionMovimiento = Integer.parseInt(cadena);
+		
+		vPrincipal.recibirPosicones(cadena);
 	}
 	
 	public static Socket getSocket() {
