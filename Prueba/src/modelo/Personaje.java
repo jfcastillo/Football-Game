@@ -57,13 +57,13 @@ public class Personaje extends Imagen implements Movible{
 	 * @param rutaImagen
 	 * @param detenido
 	 */
-	public Personaje(int posicionX, int posicionY, String DESTROYER) {
-		super(posicionX, posicionY, DESTROYER);
+	public Personaje(int posicionX, int posicionY, String rutaImg, int id) {
+		super(posicionX, posicionY, rutaImg);
 		mueveArriba = false;
 		mueveAbajo = false;
 		mueveIzquierda = false;
 		mueveDerecha = false;
-		id = 0;
+		this.id = id;
 
 	//	lanzandoHabilidad = false;
 
@@ -113,6 +113,14 @@ public class Personaje extends Imagen implements Movible{
 //	public void setRaizHabilidad(Habilidad raizHabilidad) {
 //		this.raizHabilidad = raizHabilidad;
 //	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return mueveArriba

@@ -72,7 +72,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		try {
 			vent.inicializarJuego();
-			System.out.println(vent.cliente.getId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,8 +112,8 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Método que mueve el personaje
 	 */
-	public void moverJugador(int direccion) {
-		juego.mover(direccion);
+	public void moverJugador(int direccion) {//-----------------------------------------------------------
+		juego.mover(direccion, Integer.parseInt(cliente.getId()));
 		try {
 			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
 		} catch (IOException e) {
@@ -122,6 +121,32 @@ public class VentanaPrincipal extends JFrame {
 			e.printStackTrace();
 		}
 		refrescar();
+	}
+	
+//	public void moverJugador1(int direccion) {
+//		juego.mover(direccion, 0);
+//		try {
+//			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		refrescar();
+//	}
+//	
+//	public void moverJugador2(int direccion) {
+//		juego.mover(direccion, 1);
+//		try {
+//			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		refrescar();
+//	}
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 	/**
@@ -219,6 +244,10 @@ public class VentanaPrincipal extends JFrame {
 	 * @return personaje del mapa
 	 */
 	public Personaje darPersonaje() {
+		return juego.getPersonaje()[Integer.parseInt(cliente.getId())];
+	}
+	
+	public Personaje[] darPersonajes() {
 		return juego.getPersonaje();
 	}
 	

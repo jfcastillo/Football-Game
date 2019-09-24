@@ -40,7 +40,7 @@ public class Mapa{
 	/**
 	 * Relación que representa la clase Personaje
 	 */
-	private Personaje personaje;
+	private Personaje[] personajes;
 	
 	private Ball pelota;
 	/**
@@ -53,10 +53,7 @@ public class Mapa{
 	 */
 	private int cantidadObjetos;
 
-	/**
-	 * Atributo que representa la cantidad de enemigos
-	 */
-	private int cantidadEnemigos;
+	
 
 	/**
 	 * Atributo que representa el nivel del Mapa
@@ -71,15 +68,15 @@ public class Mapa{
 		primerObjetoMapa = null;
 	//	primerEnemigo = null;
 		cantidadObjetos = 0;
-		cantidadEnemigos = 0;
+		personajes = new Personaje[2];
 		this.nivel = 1;
 	}
 
 	/**
 	 * @return personaje
 	 */
-	public Personaje getPersonaje() {
-		return personaje;
+	public Personaje[] getPersonaje() {
+		return personajes;
 	}
 
 	public Ball getPelota() {
@@ -88,8 +85,8 @@ public class Mapa{
 	/**
 	 * @param direccion
 	 */
-	public void mover(int direccion) {
-		personaje.mover(direccion);
+	public void mover(int direccion, int id) {
+		personajes[id].mover(direccion);
 	}
 	
 	public boolean isPlaying() {
@@ -158,7 +155,6 @@ public class Mapa{
 			break;
 		case 'O':
 			o = new Ball(i * Ball.ANCHO, contadorLineas * Ball.ALTO, Ball.RUTA);
-			
 			break;
 //		case 'C':
 //			o = new Item(i * Item.ANCHO, contadorLineas * Item.ALTO, "imagen de un Item", cantidadObjetos, Item.COMIDA);
@@ -169,7 +165,11 @@ public class Mapa{
 //			cantidadEnemigos++;
 //			break;
 		case '*':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN);
+			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN, 0);
+			
+			break;
+		case '#':
+			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN, 1);
 			break;
 		}
 
@@ -184,8 +184,11 @@ public class Mapa{
 //
 //				agregarObjeto(primerObjetoMapa, (Item) o);
 //			}
-			if (o instanceof Personaje) {
-				personaje = (Personaje) o;
+			if (o instanceof Personaje && ((Personaje) o).getId() == 0) {
+				personajes[0] = (Personaje) o;
+			}
+			if (o instanceof Personaje && ((Personaje) o).getId() == 1) {
+				personajes[1] = (Personaje) o;
 			}
 			if (o instanceof Ball) {
 				pelota = (Ball) o;
@@ -297,112 +300,7 @@ public class Mapa{
 		}
 	}
 
-	/**
-	 * Metodo: agregarEnemigo. Se encarga de agregar un objeto tipo Enemigo a la
-	 * lista enlazada primerEnemigo.
-	 * 
-	 * @param primer
-	 *            - primer objeto de la lista enlazada
-	 * @param nuevo
-	 *            - nuevo Enemigo ha agregar en la lista enlazada
-	 */
-//	public void agregarEnemigo(Enemigo primer, Enemigo nuevo) {
-//		if (primerEnemigo == null) {
-//			primerEnemigo = nuevo;
-//		} else {
-//			if (primer.getSiguiente() == null) {
-//				primer.setSiguiente(nuevo);
-//			} else {
-//				agregarEnemigo(primer.getSiguiente(), nuevo);
-//			}
-//		}
-//	}
 
-	/**
-	 * Nombre: buscarEnemigo. El método se encarga de buscar en la lista enlazada un
-	 * Enemigo
-	 * 
-	 * @param aux
-	 *            - primero Enemigo de la lista enlazada
-	 * @param identificador
-	 *            - codigo que identifica al Enemigo a buscar
-	 * 
-	 *            <b>pos</b> retorna null si el objeto no existe en la lista
-	 *            <b>pos</b> retorna el objeto Enemigo que coincide con el
-	 *            identificador
-	 * 
-	 * @return Enemigo con el mismo identificador de la lista enlazada
-	 */
-//	public Enemigo buscarEnemigo(Enemigo aux, int identificador) {
-//		if (aux == null) {
-//			return null;
-//		} else {
-//			if (aux.getSiguiente() == null) {
-//				if (aux.getIdentificador() == identificador) {
-//					return aux;
-//				} else {
-//					return null;
-//				}
-//			} else {
-//				if (aux.getIdentificador() == identificador) {
-//					return aux;
-//				} else {
-//					return buscarEnemigo(aux.getSiguiente(), identificador);
-//				}
-//			}
-//		}
-//	}
-
-	/**
-	 * Nombre: eliminarEnemigo. El método se encarga de eliminar de la lista
-	 * enlazada un enemigo
-	 * 
-	 * @param identificador
-	 *            - codigo que identifica al Enemigo a buscar
-	 * 
-	 *            <b>pos</b> se busca al elemento a eliminar <b>pos</b> se elimina
-	 *            el elemento encontrado
-	 */
-//	public void eliminarEnemigo(int identificador) {
-//		Enemigo o = buscarEnemigo(primerEnemigo, identificador);
-//		if (o == primerEnemigo) {
-//			primerEnemigo = o.getSiguiente();
-//			o.setSiguiente(null);
-//		} else {
-//			Enemigo anterior = enemigoAnterior(primerEnemigo, null, identificador);
-//			anterior.setSiguiente(o.getSiguiente());
-//			o.setSiguiente(null);
-//		}
-//	}
-
-	/**
-	 * Nombre: enemigoAnterior. El método se encarga obtener el enemigo anterior al
-	 * elemento que coincida con el identificador
-	 * 
-	 * @param aux
-	 *            - primero objeto de la lista enlazada
-	 * @param anterior
-	 *            - objeto anterior
-	 * @param identificador
-	 *            - codigo que identifica al objeto a buscar
-	 * 
-	 *            <b>pos</b> se encuentra al objeto con el identificador y retorna
-	 *            el anterior a este <b>pos</b> se llama al método enemigoAnterior
-	 *            si el identificador no coincide
-	 * 
-	 * @return ante - elemento anterior al elemento que coincide con el
-	 *         identificador
-	 */
-//	public Enemigo enemigoAnterior(Enemigo aux, Enemigo anterior, int identificador) {
-//		Enemigo ante = anterior;
-//		Enemigo actual = aux;
-//		if (actual.getIdentificador() == identificador) {
-//			return ante;
-//		} else {
-//			ante = actual;
-//			return enemigoAnterior(actual.getSiguiente(), ante, identificador);
-//		}
-//	}
 
 	/**
 	 * @return primerObjetoMapa
@@ -418,18 +316,6 @@ public class Mapa{
 		this.primerObjetoMapa = primerObjetoMapa;
 	}
 
-	/**
-	 * @return primerEnemigo
-	 */
-//	public Enemigo getPrimerEnemigo() {
-//		return primerEnemigo;
-//	}
-//
-//	/**
-//	 * @param primerEnemigo
-//	 */
-//	public void setPrimerEnemigo(Enemigo primerEnemigo) {
-//		this.primerEnemigo = primerEnemigo;
-//	}
+
 
 }

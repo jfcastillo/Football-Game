@@ -54,15 +54,17 @@ public class PanelJuego extends JPanel implements KeyListener {
 		ImageIcon Img = new ImageIcon("./resources/soccerField.png");// Pintar cancha.
 		g.drawImage(Img.getImage(), 0, 0, height.width, height.height, null);
 		
-		ImageIcon jug = new ImageIcon(vPrincipal.darPersonaje().IMAGEN);
-		g.drawImage(jug.getImage(), vPrincipal.darPersonaje().getPosicionX(), vPrincipal.darPersonaje().getPosicionY(), 30, 50, null);
-
 		ImageIcon ball = new ImageIcon(vPrincipal.darBall().getRutaImagen());
 		g.drawImage(ball.getImage(), vPrincipal.darBall().getPosicionX(), vPrincipal.darBall().getPosicionY(), 30, 50, null);
 		
 		//g.drawImage(new ImageIcon(Mapa.FONDO_NIVEL_1).getImage(), 0, 0, Mapa.ANCHO, Mapa.ALTO, this); // Carga el fondo
 																										// del nivel 1
-
+		Personaje auxi = null;
+		for (int i = 0; i < vPrincipal.darPersonajes().length; i++) {
+			auxi = vPrincipal.darPersonajes()[i];
+			ImageIcon jug = new ImageIcon(auxi.getRutaImagen());
+			g.drawImage(jug.getImage(), auxi.getPosicionX(), auxi.getPosicionY(), 30, 50, null);
+		}
 		
 
 		ObjetoMapa aux = vPrincipal.darMapa().getPrimerObjetoMapa();
@@ -113,6 +115,7 @@ public class PanelJuego extends JPanel implements KeyListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
 			vPrincipal.moverJugador(1);
 		}
@@ -125,10 +128,33 @@ public class PanelJuego extends JPanel implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) { // down
 			vPrincipal.moverJugador(4);
 		}
-
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) { // espacio
-			//vPrincipal.lanzarHabilidad();
-		}
+//		if(vPrincipal.getCliente().getId().equals("0")) {
+//			if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
+//				vPrincipal.moverJugador1(1);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_RIGHT) { // Right
+//				vPrincipal.moverJugador1(2);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_UP) {// up
+//				vPrincipal.moverJugador1(3);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_DOWN) { // down
+//				vPrincipal.moverJugador1(4);
+//			}
+//		}else {
+//			if (e.getKeyCode() == KeyEvent.VK_A) { // left
+//				vPrincipal.moverJugador2(1);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_D) { // Right
+//				vPrincipal.moverJugador2(2);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_W) {// up
+//				vPrincipal.moverJugador2(3);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_S) { // down
+//				vPrincipal.moverJugador2(4);
+//			}
+//		}
 	}
 
 	@Override

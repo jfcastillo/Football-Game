@@ -128,7 +128,12 @@ public class Cliente {
 	}
 	
 	public void enviarDatos(String cadena) throws IOException {
-		out.writeUTF(cadena+"#"+"1"); 
+		if(this.id.equals("0")) {
+			out.writeUTF(cadena+"#"+"1"); 
+		}
+		else if(this.id.equals("1")) {
+			out.writeUTF(cadena+"#"+"0"); 
+		}
 	}
 	
 	public void recibirDatos(String cadena) {

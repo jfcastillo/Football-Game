@@ -97,19 +97,19 @@ public class PanelFondo extends JPanel implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
-			vPrincipal.moverJugador(1);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) { // Right
-			vPrincipal.moverJugador(2);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_UP) {// up
-			vPrincipal.moverJugador(3);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) { // down
-			vPrincipal.moverJugador(4);
-		}
+//		// TODO Auto-generated method stub
+//		if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
+//			vPrincipal.moverJugador(1);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_RIGHT) { // Right
+//			vPrincipal.moverJugador(2);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_UP) {// up
+//			vPrincipal.moverJugador(3);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_DOWN) { // down
+//			vPrincipal.moverJugador(4);
+//		}
 	}
 
 	@Override
