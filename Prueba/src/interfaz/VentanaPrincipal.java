@@ -22,7 +22,7 @@ public class VentanaPrincipal extends JFrame {
 	private Mapa juego;
 
 	private PanelJuego panelJuego;
-	private PanelFondo panelFondo;
+	
 	
 	private Cliente cliente;
 	
@@ -59,7 +59,7 @@ public class VentanaPrincipal extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		panelJuego = new PanelJuego(this);
-		panelFondo = new PanelFondo(this);
+		
 		setLocationRelativeTo(null);
 		add(panelJuego, BorderLayout.CENTER);
 		pack();
