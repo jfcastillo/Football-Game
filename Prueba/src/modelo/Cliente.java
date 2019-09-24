@@ -98,7 +98,7 @@ public class Cliente {
 	                    	else {
 	                    		String msg = in.readUTF(); 
 	                    		recibirDatos(msg);
-	                    		System.out.println(msg); 
+	                    		//System.out.println(msg); 
 	                    		
 	                    	}
 	                    } catch (IOException e) { 
@@ -139,7 +139,7 @@ public class Cliente {
 	
 	public void recibirDatos(String cadena) {
 		
-		vPrincipal.recibirPosicones(cadena);
+		vPrincipal.recibirPosiciones(cadena);
 	}
 	
 	public static Socket getSocket() {

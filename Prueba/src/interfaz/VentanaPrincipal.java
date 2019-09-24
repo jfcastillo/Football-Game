@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 
 import hilos.HiloColisionJugador;
+import hilos.HiloColisionPelota;
 import modelo.Ball;
 import modelo.Cliente;
 import modelo.Mapa;
@@ -123,6 +124,17 @@ public class VentanaPrincipal extends JFrame {
 		refrescar();
 	}
 	
+	public void moverPelota(int direccion) {
+		darMapa().getPelota().mover(direccion);
+		try {
+			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		refrescar();
+	}
+	
 //	public void moverJugador1(int direccion) {
 //		juego.mover(direccion, 0);
 //		try {
@@ -157,18 +169,26 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	
 
-	public void recibirPosicones(String cadena) {
-		String arr[] = cadena.split(" ");
-		System.out.println(arr[2]);
-		int posicion = Integer.parseInt(arr[2]);
-		darPersonajes()[posicion].setPosicionX(Integer.parseInt(arr[0]));
-		darPersonajes()[posicion].setPosicionY(Integer.parseInt(arr[1]));
+	public void recibirPosiciones(String cadena) {
+		if(cadena.charAt(cadena.length()-1) == 'p') {
+			String arr[] = cadena.split(" ");			
+			darMapa().getPelota().setPosicionX(Integer.parseInt(arr[0]));
+			darMapa().getPelota().setPosicionY(Integer.parseInt(arr[1]));
+		}
+		else {
+			
+			String arr[] = cadena.split(" ");
+			//System.out.println(arr[2]);
+			int posicion = Integer.parseInt(arr[2]);
+			darPersonajes()[posicion].setPosicionX(Integer.parseInt(arr[0]));
+			darPersonajes()[posicion].setPosicionY(Integer.parseInt(arr[1]));
+		}
 		refrescar();
 	}
 
 	public void iniciarHilos() {
 		iniciarColisionJugador();
-		
+		iniciarColisionPelota();
 		
 	}
 
@@ -179,6 +199,13 @@ public class VentanaPrincipal extends JFrame {
 				this);
 		
 		hiloColisionJ.start();
+	}
+	
+	public void iniciarColisionPelota() {
+		HiloColisionPelota hiloColisionP = new HiloColisionPelota(darPersonajes(), darMapa().getPrimerObjetoMapa(),
+				this, darMapa().getPelota());
+		
+		hiloColisionP.start();
 	}
 
 	

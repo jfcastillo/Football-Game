@@ -128,6 +128,19 @@ public class PanelJuego extends JPanel implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) { // down
 			vPrincipal.moverJugador(4);
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_A) { // left
+		vPrincipal.moverPelota(1);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_D) { // Right
+		vPrincipal.moverPelota(2);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_W) {// up
+		vPrincipal.moverPelota(3);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_S) { // down
+		vPrincipal.moverPelota(4);
+		}
 //		if(vPrincipal.getCliente().getId().equals("0")) {
 //			if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
 //				vPrincipal.moverJugador1(1);
@@ -142,18 +155,7 @@ public class PanelJuego extends JPanel implements KeyListener {
 //				vPrincipal.moverJugador1(4);
 //			}
 //		}else {
-//			if (e.getKeyCode() == KeyEvent.VK_A) { // left
-//				vPrincipal.moverJugador2(1);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_D) { // Right
-//				vPrincipal.moverJugador2(2);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_W) {// up
-//				vPrincipal.moverJugador2(3);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_S) { // down
-//				vPrincipal.moverJugador2(4);
-//			}
+
 //		}
 	}
 
