@@ -43,7 +43,7 @@ public class Cliente {
 	 */
 	
 	public Cliente(VentanaPrincipal vPrincipal) {
-		id = "";
+		id = "-1";
 		this.vPrincipal = vPrincipal;
 		
 		direccionMovimiento = 0;
@@ -168,6 +168,15 @@ public class Cliente {
 		this.direccionMovimiento = direccionMovimiento;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
 
 
 }

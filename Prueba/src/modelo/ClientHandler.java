@@ -15,6 +15,8 @@ class ClientHandler implements Runnable
     Socket s; 
     boolean isloggedin; 
     boolean nombreEnviado;
+    String positions;
+    String recipient;
       
     // constructor 
     public ClientHandler(Socket s, String name, 
@@ -25,49 +27,58 @@ class ClientHandler implements Runnable
         this.s = s; 
         this.isloggedin=true; 
         nombreEnviado = false;
+        positions = "";
+        recipient = "";
     } 
   
     @Override
     public void run() { 
   
-        String received; 
+         String received;
         while (true)  
         { 
             try
             { 
-                // receive the string 
-                received = dis.readUTF(); 
-                  
-                System.out.println(received); 
-                  
-                if(received.equals("logout")){ 
-                    this.isloggedin=false; 
-                    this.s.close(); 
-                    break; 
-                } 
+            	
+            	
+//            	
+//                // receive the string 
+//                received = dis.readUTF(); 
+//                  
+//                System.out.println(received); 
+//                  
+//                if(received.equals("logout")){ 
+//                    this.isloggedin=false; 
+//                    this.s.close(); 
+//                    break; 
+//                } 
                 
-                if (!nombreEnviado) {
-					
+                if(!nombreEnviado) {
                 	
+                	positions = this.name;
+                	recipient = this.name;
                 	
+                	// search for the recipient in the connected devices list. 
+                    // ar is the vector storing client of active users 
                     for (ClientHandler mc : Servidor.ar)  
                     { 
                         // if the recipient is found, write on its 
                         // output stream 
-                        if (mc.name.equals(name) && mc.isloggedin==true)  
+                        if (mc.name.equals(recipient) && mc.isloggedin==true)  
                         { 
-                            mc.dos.writeUTF(name); 
+                            mc.dos.writeUTF(positions); 
                             break; 
                         } 
                     }
                     nombreEnviado = true;
-				}
+                }
                 else {
                 	
+                	received = dis.readUTF();
                 	// break the string into message and recipient part 
-                	StringTokenizer st = new StringTokenizer(received, "#"); 
-                	String MsgToSend = st.nextToken(); 
-                	String recipient = st.nextToken(); 
+                	String [] cadena = received.split("#"); 
+                	positions = cadena[0]; 
+                	recipient = cadena[1]; 
                 	
                 	// search for the recipient in the connected devices list. 
                 	// ar is the vector storing client of active users 
@@ -77,7 +88,7 @@ class ClientHandler implements Runnable
                 		// output stream 
                 		if (mc.name.equals(recipient) && mc.isloggedin==true)  
                 		{ 
-                			mc.dos.writeUTF(MsgToSend); 
+                			mc.dos.writeUTF(positions); 
                 			break; 
                 		} 
                 	} 
@@ -89,15 +100,10 @@ class ClientHandler implements Runnable
                 e.printStackTrace(); 
             } 
               
-        } 
-        try
-        { 
-            // closing resources 
-            this.dis.close(); 
-            this.dos.close(); 
-              
-        }catch(IOException e){ 
-            e.printStackTrace(); 
-        } 
+        }
+         
+           
+          
+       
     } 
 } 

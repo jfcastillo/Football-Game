@@ -72,6 +72,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		try {
 			vent.inicializarJuego();
+			System.out.println(vent.cliente.getId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
