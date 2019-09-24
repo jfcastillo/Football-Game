@@ -115,7 +115,7 @@ public class VentanaPrincipal extends JFrame {
 	public void moverJugador(int direccion) {//-----------------------------------------------------------
 		juego.mover(direccion, Integer.parseInt(cliente.getId()));
 		try {
-			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
+			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,8 +159,10 @@ public class VentanaPrincipal extends JFrame {
 
 	public void recibirPosicones(String cadena) {
 		String arr[] = cadena.split(" ");
-		darPersonaje().setPosicionX(Integer.parseInt(arr[0]));
-		darPersonaje().setPosicionY(Integer.parseInt(arr[1]));
+		System.out.println(arr[2]);
+		int posicion = Integer.parseInt(arr[2]);
+		darPersonajes()[posicion].setPosicionX(Integer.parseInt(arr[0]));
+		darPersonajes()[posicion].setPosicionY(Integer.parseInt(arr[1]));
 		refrescar();
 	}
 

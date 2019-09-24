@@ -63,7 +63,7 @@ public class PanelJuego extends JPanel implements KeyListener {
 		for (int i = 0; i < vPrincipal.darPersonajes().length; i++) {
 			auxi = vPrincipal.darPersonajes()[i];
 			ImageIcon jug = new ImageIcon(auxi.getRutaImagen());
-			g.drawImage(jug.getImage(), auxi.getPosicionX(), auxi.getPosicionY(), 30, 50, null);
+			g.drawImage(jug.getImage(), auxi.getPosicionX(), auxi.getPosicionY(), 50, 80, null);
 		}
 		
 

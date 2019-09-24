@@ -79,6 +79,7 @@ public class Cliente {
 //	        }); 
 	          
 	        // readMessage thread 
+			//hilo para estar pendiente cuando el servidor envíe un mensaje al cliente
 	        Thread readMessage = new Thread(new Runnable()  
 	        { 
 	            @Override

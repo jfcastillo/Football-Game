@@ -165,11 +165,11 @@ public class Mapa{
 //			cantidadEnemigos++;
 //			break;
 		case '*':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN, 0);
+			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN3, 0);
 			
 			break;
 		case '#':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN, 1);
+			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN2, 1);
 			break;
 		}
 

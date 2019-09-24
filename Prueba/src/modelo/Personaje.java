@@ -21,6 +21,9 @@ public class Personaje extends Imagen implements Movible{
 	 * Constante que representa la ruta de la imagen del personaje
 	 */
 	public final static String IMAGEN = "./resources/jug.gif";
+	
+	public final static String IMAGEN2 = "./resources/Imagenes/personajes/personaje2Corre.gif";
+	public final static String IMAGEN3 = "./resources/Imagenes/personajes/personaje3Corre.gif";
 
 	/**
 	 * Atributo que representa el movimiento hacia arriba del personaje
