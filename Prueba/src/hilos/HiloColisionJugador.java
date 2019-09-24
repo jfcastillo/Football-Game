@@ -9,13 +9,13 @@ import modelo.Personaje;
 
 public class HiloColisionJugador extends Thread {
 
-	private Personaje personaje;
+	private Personaje[] personajes;
 	private ObjetoMapa objeto;
 	private VentanaPrincipal vPrincipal;
 
-	public HiloColisionJugador(Personaje personaje, ObjetoMapa objeto, VentanaPrincipal vPrincipal) {
+	public HiloColisionJugador(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal) {
 		super();
-		this.personaje = personaje;
+		this.personajes = personajes;
 		this.objeto = objeto;
 		this.vPrincipal = vPrincipal;
 
@@ -25,21 +25,23 @@ public class HiloColisionJugador extends Thread {
 	public void run() {
 
 		while (vPrincipal.isPlaying()) {
-
-			Rectangle rectanguloDestroyer = new Rectangle(personaje.getPosicionX(), personaje.getPosicionY(),
-					Personaje.ANCHO, Personaje.ALTO);
-
-			ObjetoMapa aux = objeto;
-			while (aux != null) {
-
-				if (aux instanceof Bloque) {
-					Rectangle rectanguloBloque = new Rectangle(aux.getPosicionX(), aux.getPosicionY(), Bloque.ANCHO,
-							Bloque.ANCHO);
-					if (rectanguloDestroyer.intersects(rectanguloBloque)) {
-						personaje.empujar();
+			
+			for (int i = 0; i < personajes.length; i++) {
+				
+				Rectangle areaJugador = new Rectangle(personajes[i].getPosicionX(), personajes[i].getPosicionY(),
+						Personaje.ANCHO, Personaje.ALTO);
+				
+				ObjetoMapa aux = objeto;
+				while (aux != null) {
+					
+					if (aux instanceof Bloque) {
+						Rectangle rectanguloBloque = new Rectangle(aux.getPosicionX(), aux.getPosicionY(), Bloque.ANCHO,
+								Bloque.ANCHO);
+						if (areaJugador.intersects(rectanguloBloque)) {
+							personajes[i].empujar();
+						}
 					}
-				}
-
+					
 //				if (aux instanceof Item) {
 //
 //					if (((Item) aux).getTipo() == Item.COMIDA || ((Item) aux).getTipo() == Item.MALETIN) {
@@ -53,9 +55,11 @@ public class HiloColisionJugador extends Thread {
 //						}
 //					}
 //				}
-
-				aux = aux.getSiguiente();
+					
+					aux = aux.getSiguiente();
+				}
 			}
+
 
 		}
 	}

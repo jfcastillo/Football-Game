@@ -175,7 +175,7 @@ public class VentanaPrincipal extends JFrame {
 
 
 	public void iniciarColisionJugador() {
-		HiloColisionJugador hiloColisionJ = new HiloColisionJugador(darPersonaje(), darMapa().getPrimerObjetoMapa(),
+		HiloColisionJugador hiloColisionJ = new HiloColisionJugador(darPersonajes(), darMapa().getPrimerObjetoMapa(),
 				this);
 		
 		hiloColisionJ.start();
