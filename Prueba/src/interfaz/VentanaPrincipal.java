@@ -70,18 +70,7 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		//juego = new Juego();
 	}
-	
-	public static void main(String[] args) {
-		VentanaPrincipal vent = new VentanaPrincipal();
-		
-		try {
-			vent.inicializarJuego();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 	public boolean isPlaying() {
 		return juego.isPlaying();
@@ -91,11 +80,12 @@ public class VentanaPrincipal extends JFrame {
 		juego.setPlaying(true);
 	}
 	
-	public void inicializarJuego() throws IOException {
+	public void inicializarJuego(String nombreJugador) throws IOException {
 		juego = new Mapa();
 		juego.leerMapa();
 		setPlaying(true);
 		iniciarHilos();
+		
 		
 		
 	}

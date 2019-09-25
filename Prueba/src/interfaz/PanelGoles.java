@@ -14,6 +14,8 @@ public class PanelGoles extends JPanel{
 	private JLabel Marcador;
 	private JLabel izquierda;
 	private JLabel derecha;
+	private JLabel nomJug1;
+	private JLabel nomJug2;
 	
 
 	
@@ -26,15 +28,25 @@ public class PanelGoles extends JPanel{
 		Marcador = new JLabel("MARCADOR",SwingConstants.CENTER);
 		izquierda = new JLabel("0",SwingConstants.CENTER);
 		derecha = new JLabel("0",SwingConstants.CENTER);
+		nomJug1= new JLabel("jug 1 ",SwingConstants.CENTER);
+		nomJug2= new JLabel("jug 2",SwingConstants.CENTER);
 		
 		Marcador.setForeground(Color.WHITE);
 		izquierda.setForeground(Color.WHITE);
 		derecha.setForeground(Color.WHITE);
-
-		
+		JLabel labAux1= new JLabel();
+		labAux1.setBackground(Color.BLACK);
+		JLabel labAux2= new JLabel();
+		labAux2.setBackground(Color.BLACK);
+		nomJug1.setForeground(Color.WHITE);
+		nomJug2.setForeground(Color.WHITE);
+		add(labAux1);
+		add(nomJug1);
 		add(izquierda);
-		add(Marcador);		
+		add(Marcador);
+		add(nomJug2);
 		add(derecha);
+		add(labAux2);
 	}
 	
 	
@@ -47,6 +59,13 @@ public class PanelGoles extends JPanel{
 
 	public void setIzquierda(String izquierda) {
 		this.izquierda.setText(izquierda);
+	}
+	public void cambiarNombreJugador1(String nombre) {
+		nomJug1.setText(nombre);
+	}
+	
+	public void cambiarNombreJugador2(String nombre) {
+		nomJug2.setText(nombre);
 	}
 
 
