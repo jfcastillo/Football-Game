@@ -169,7 +169,7 @@ public class Mapa{
 			
 			break;
 		case '#':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN2, 1);
+			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN2ROTADA, 1);
 			break;
 		}
 

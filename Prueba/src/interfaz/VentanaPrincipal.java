@@ -115,6 +115,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public void moverJugador(int direccion) {//-----------------------------------------------------------
 		juego.mover(direccion, Integer.parseInt(cliente.getId()));
+		
 		try {
 			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId()));
 		} catch (IOException e) {
@@ -188,7 +189,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarHilos() {
 		iniciarColisionJugador();
-		iniciarColisionPelota();
+		//iniciarColisionPelota();
 		
 	}
 
@@ -196,16 +197,16 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarColisionJugador() {
 		HiloColisionJugador hiloColisionJ = new HiloColisionJugador(darPersonajes(), darMapa().getPrimerObjetoMapa(),
-				this);
+				this, darBall());
 		
 		hiloColisionJ.start();
 	}
 	
 	public void iniciarColisionPelota() {
-		HiloColisionPelota hiloColisionP = new HiloColisionPelota(darPersonajes(), darMapa().getPrimerObjetoMapa(),
-				this, darMapa().getPelota());
-		
-		hiloColisionP.start();
+//		HiloColisionPelota hiloColisionP = new HiloColisionPelota(darPersonajes(), darMapa().getPrimerObjetoMapa(),
+//				this, darMapa().getPelota());
+//		
+//		hiloColisionP.start();
 	}
 
 	

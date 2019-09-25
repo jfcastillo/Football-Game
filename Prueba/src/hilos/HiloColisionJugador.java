@@ -3,21 +3,25 @@ package hilos;
 import java.awt.Rectangle;
 
 import interfaz.VentanaPrincipal;
+import modelo.Ball;
 import modelo.Bloque;
 import modelo.ObjetoMapa;
 import modelo.Personaje;
+import hilos.HiloColisionPelota;
 
 public class HiloColisionJugador extends Thread {
 
 	private Personaje[] personajes;
 	private ObjetoMapa objeto;
 	private VentanaPrincipal vPrincipal;
+	private Ball balon;
 
-	public HiloColisionJugador(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal) {
+	public HiloColisionJugador(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal, Ball bal) {
 		super();
 		this.personajes = personajes;
 		this.objeto = objeto;
 		this.vPrincipal = vPrincipal;
+		balon = bal;
 
 	}
 
@@ -25,6 +29,8 @@ public class HiloColisionJugador extends Thread {
 	public void run() {
 
 		while (vPrincipal.isPlaying()) {
+			Rectangle areaPel = new Rectangle(balon.getPosicionX(), balon.getPosicionY(),
+					Personaje.ANCHO, Personaje.ALTO);
 			
 			for (int i = 0; i < personajes.length; i++) {
 				
@@ -39,6 +45,15 @@ public class HiloColisionJugador extends Thread {
 								Bloque.ANCHO);
 						if (areaJugador.intersects(rectanguloBloque)) {
 							personajes[i].empujar();
+						}
+						if (areaPel.intersects(rectanguloBloque)) {
+							balon.empujar();
+						}
+						if(areaJugador.intersects(areaPel)) {
+//							balon.empujar();
+							HiloColisionPelota hiloColisionP = new HiloColisionPelota(personajes, objeto, vPrincipal, balon, i);
+					
+							hiloColisionP.start();
 						}
 					}
 					

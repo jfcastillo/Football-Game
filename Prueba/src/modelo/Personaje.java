@@ -23,7 +23,9 @@ public class Personaje extends Imagen implements Movible{
 	public final static String IMAGEN = "./resources/jug.gif";
 	
 	public final static String IMAGEN2 = "./resources/Imagenes/personajes/personaje2Corre.gif";
+	public final static String IMAGEN2ROTADA = "./resources/Imagenes/personajes/personaje2rotado.gif";
 	public final static String IMAGEN3 = "./resources/Imagenes/personajes/personaje3Corre.gif";
+	public final static String IMAGEN3ROTADA = "./resources/Imagenes/personajes/personaje3Correrotado.gif";
 
 	/**
 	 * Atributo que representa el movimiento hacia arriba del personaje
@@ -249,10 +251,24 @@ public class Personaje extends Imagen implements Movible{
 
 		if (direccion == 1) {
 			moverIzquierda(DISTANCIA_QUE_SE_MUEVE_1);
+			if (getRutaImagen().equals(IMAGEN3)) {
+				setRutaImagen(IMAGEN3ROTADA);
+			}
+			else if (getRutaImagen().equals(IMAGEN2)) {
+				setRutaImagen(IMAGEN2ROTADA);
+			}
+			
 			direccionActual(1);
 		}
 		if (direccion == 2) {
 			moverDerecha(DISTANCIA_QUE_SE_MUEVE_1);
+			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
+				setRutaImagen(IMAGEN3);
+			}
+			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
+				setRutaImagen(IMAGEN2);
+			}
+			
 			direccionActual(2);
 		}
 		if (direccion == 3) {
