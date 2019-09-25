@@ -142,6 +142,11 @@ public class PanelJuego extends JPanel implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_S) { // down
 		vPrincipal.moverPelota(4);
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) { // left
+//			vPrincipal.patearPelota(direccion);/
+		}
+		
 //		if(vPrincipal.getCliente().getId().equals("0")) {
 //			if (e.getKeyCode() == KeyEvent.VK_LEFT) { // left
 //				vPrincipal.moverJugador1(1);

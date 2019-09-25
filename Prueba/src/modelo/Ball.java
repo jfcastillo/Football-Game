@@ -15,23 +15,23 @@ public class Ball extends Personaje implements Movible {
 
 		if (direccion == 1) {
 			moverIzquierda(DISTANCIA_QUE_SE_MUEVE_2);
-			if (getRutaImagen().equals(IMAGEN3)) {
-				setRutaImagen(IMAGEN3ROTADA);
-			}
-			else if (getRutaImagen().equals(IMAGEN2)) {
-				setRutaImagen(IMAGEN2ROTADA);
-			}
+//			if (getRutaImagen().equals(IMAGEN3)) {
+//				setRutaImagen(IMAGEN3ROTADA);
+//			}
+//			else if (getRutaImagen().equals(IMAGEN2)) {
+//				setRutaImagen(IMAGEN2ROTADA);
+//			}
 			
 			direccionActual(1);
 		}
 		if (direccion == 2) {
 			moverDerecha(DISTANCIA_QUE_SE_MUEVE_2);
-			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
-				setRutaImagen(IMAGEN3);
-			}
-			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
-				setRutaImagen(IMAGEN2);
-			}
+//			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
+//				setRutaImagen(IMAGEN3);
+//			}
+//			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
+//				setRutaImagen(IMAGEN2);
+//			}
 			
 			direccionActual(2);
 		}
@@ -41,6 +41,39 @@ public class Ball extends Personaje implements Movible {
 		}
 		if (direccion == 4) {
 			moverAbajo(DISTANCIA_QUE_SE_MUEVE_2);
+			direccionActual(4);
+		}
+	}
+	public void mover(int direccion, int distancia) {
+
+		if (direccion == 1) {
+			moverIzquierda(distancia);
+//			if (getRutaImagen().equals(IMAGEN3)) {
+//				setRutaImagen(IMAGEN3ROTADA);
+//			}
+//			else if (getRutaImagen().equals(IMAGEN2)) {
+//				setRutaImagen(IMAGEN2ROTADA);
+//			}
+			
+			direccionActual(1);
+		}
+		if (direccion == 2) {
+			moverDerecha(distancia);
+//			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
+//				setRutaImagen(IMAGEN3);
+//			}
+//			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
+//				setRutaImagen(IMAGEN2);
+//			}
+			
+			direccionActual(2);
+		}
+		if (direccion == 3) {
+			moverArriba(distancia);
+			direccionActual(3);
+		}
+		if (direccion == 4) {
+			moverAbajo(distancia);
 			direccionActual(4);
 		}
 	}

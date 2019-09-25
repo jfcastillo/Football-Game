@@ -1,32 +1,22 @@
 package hilos;
 
-import java.awt.Rectangle;
-
 import interfaz.VentanaPrincipal;
 import modelo.Ball;
-import modelo.Bloque;
-import modelo.ObjetoMapa;
 import modelo.Personaje;
 
-public class HiloColisionPelota extends Thread {
-
+public class HiloPatearPelota extends Thread {
 	
 	private Personaje[] personajes;
-	private ObjetoMapa objeto;
 	private VentanaPrincipal vPrincipal;
 	private Ball pelota;
 	private int id;
 
-	public HiloColisionPelota(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal, Ball pelota, int id) {
-		super();
+	public HiloPatearPelota(Personaje []personajes, VentanaPrincipal vPrincipal, Ball pelota, int i) {
 		this.personajes = personajes;
-		this.objeto = objeto;
 		this.vPrincipal = vPrincipal;
 		this.pelota = pelota;
 		this.id = id;
-
 	}
-
 	@Override
 	public void run() {
 		boolean si = true;
@@ -35,7 +25,7 @@ public class HiloColisionPelota extends Thread {
 
 			
 				
-				vPrincipal.moverPelota(personajes[id].darDireccionActual());
+				vPrincipal.patearPelota(personajes[id].darDireccionActual());
 				//pelota.mover(personajes[id].darDireccionActual());
 				try {
 					Thread.sleep(100000);
@@ -52,4 +42,7 @@ public class HiloColisionPelota extends Thread {
 			
 		}
 	}
+
+	
+
 }

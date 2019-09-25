@@ -50,10 +50,13 @@ public class HiloColisionJugador extends Thread {
 							balon.empujar();
 						}
 						if(areaJugador.intersects(areaPel)) {
+							System.out.println("entre");
 //							balon.empujar();
-							HiloColisionPelota hiloColisionP = new HiloColisionPelota(personajes, objeto, vPrincipal, balon, i);
-					
-							hiloColisionP.start();
+							vPrincipal.moverPelota(personajes[i].darDireccionActual());
+//							balon.mover(personajes[i].darDireccionActual());
+//							HiloColisionPelota hiloColisionP = new HiloColisionPelota(personajes, objeto, vPrincipal, balon, i);
+//					
+//							hiloColisionP.start();
 						}
 					}
 					

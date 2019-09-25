@@ -117,7 +117,8 @@ public class VentanaPrincipal extends JFrame {
 		juego.mover(direccion, Integer.parseInt(cliente.getId()));
 		
 		try {
-			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId()));
+			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,6 +128,17 @@ public class VentanaPrincipal extends JFrame {
 	
 	public void moverPelota(int direccion) {
 		darMapa().getPelota().mover(direccion);
+		try {
+			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		refrescar();
+	}
+	
+	public void patearPelota(int direccion) {
+		darMapa().getPelota().mover(direccion, 5);
 		try {
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
 		} catch (NumberFormatException | IOException e) {
@@ -183,6 +195,7 @@ public class VentanaPrincipal extends JFrame {
 			int posicion = Integer.parseInt(arr[2]);
 			darPersonajes()[posicion].setPosicionX(Integer.parseInt(arr[0]));
 			darPersonajes()[posicion].setPosicionY(Integer.parseInt(arr[1]));
+			darPersonajes()[posicion].setRutaImagen(arr[3]);
 		}
 		refrescar();
 	}
