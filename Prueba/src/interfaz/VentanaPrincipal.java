@@ -136,11 +136,11 @@ public class VentanaPrincipal extends JFrame {
 			int posx = darMapa().getPelota().getPosicionX();
 			int posy = darMapa().getPelota().getPosicionY();
 			System.out.println("la posicion x"+darMapa().getPelota().getPosicionX()+" "+"la posicion y "+darMapa().getPelota().getPosicionY());
-			if(posx<=160 && (posy>=220 && posy<=365))
+			if(posx==120 && (posy>=220 && posy<=365))
 			{
 				panelGoles.setGolesDerecha();
 			}
-			else if(posx>=1096 && (posy>=220 && posy<=365))
+			else if(posx>=1100 && (posy>=220 && posy<=365))
 			{
 				panelGoles.setGolesIzquierda();
 			}
