@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-
-import hilos.HiloColisionJugador;
+import hilos.HiloColisionesGenerales;
 import hilos.HiloColisionPelota;
 import modelo.Ball;
 import modelo.Cliente;
@@ -58,7 +58,7 @@ public class VentanaPrincipal extends JFrame {
 		setPreferredSize(new Dimension(ANCHO, ALTURA));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		panelJuego = new PanelJuego(this);
 		panelGoles = new PanelGoles(this);
@@ -138,11 +138,11 @@ public class VentanaPrincipal extends JFrame {
 			System.out.println("la posicion x"+darMapa().getPelota().getPosicionX()+" "+"la posicion y "+darMapa().getPelota().getPosicionY());
 			if(posx==120 && (posy>=220 && posy<=365))
 			{
-				panelGoles.setGolesDerecha();
+				setGolesDerecha();
 			}
 			else if(posx>=1100 && (posy>=220 && posy<=365))
 			{
-				panelGoles.setGolesIzquierda();
+				setGolesIzquierda();
 			}
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
@@ -152,7 +152,7 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void patearPelota(int direccion) {
-		darMapa().getPelota().mover(direccion, 5);
+		darMapa().getPelota().mover(direccion, 1);
 		try {
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
 		} catch (NumberFormatException | IOException e) {
@@ -162,30 +162,38 @@ public class VentanaPrincipal extends JFrame {
 		refrescar();
 	}
 	
-//	public void moverJugador1(int direccion) {
-//		juego.mover(direccion, 0);
-//		try {
-//			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		refrescar();
-//	}
-//	
-//	public void moverJugador2(int direccion) {
-//		juego.mover(direccion, 1);
-//		try {
-//			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		refrescar();
-//	}
+	
+	public void setGolesDerecha()
+	{
+		darMarcador()[0]+=1;
+		String g = Integer.toString(darMarcador()[0]);
+		panelGoles.setDerecha(g);
+		reinciarBalon();
+		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+		
+	}
+	
+	public void setGolesIzquierda()
+	{
+		darMarcador()[1]+=1;
+		String g = Integer.toString(darMarcador()[0]);
+		panelGoles.setIzquierda(g);
+		reinciarBalon();
+		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+	}
+
+	public void reinciarBalon() {
+		Dimension size = getSize();
+		darBall().setPosicionX(size.width/2);
+		darBall().setPosicionY(size.height/2);
+	}
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+	
+	public int[] darMarcador() {
+		return darMapa().getMarcador(); 
 	}
 
 	/**
@@ -215,15 +223,15 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	public void iniciarHilos() {
-		iniciarColisionJugador();
+		iniciarColisionesGenerales();
 		//iniciarColisionPelota();
 		
 	}
 
 
 
-	public void iniciarColisionJugador() {
-		HiloColisionJugador hiloColisionJ = new HiloColisionJugador(darPersonajes(), darMapa().getPrimerObjetoMapa(),
+	public void iniciarColisionesGenerales() {
+		HiloColisionesGenerales hiloColisionJ = new HiloColisionesGenerales(darPersonajes(), darMapa().getPrimerObjetoMapa(),
 				this, darBall());
 		
 		hiloColisionJ.start();
@@ -252,39 +260,6 @@ public class VentanaPrincipal extends JFrame {
 //	}
 
 	
-
-	
-
-//	/**
-//	 * Método que se encarga abrir la ventana puntajes
-//	 */
-//	public void abrirPuntaje() {
-//		dialogoPuntajes = new DialogoPuntajes(this);
-//		actualizarPartidas();
-//		dialogoPuntajes.setVisible(true);
-//		dialogoPuntajes.setLocationRelativeTo(this);
-//	}
-
-	/**
-	 * @return the dialogoJuego
-	 */
-//	public DialogoJuego getDialogoJuego() {
-//		return dialogoJuego;
-//	}
-//
-//	/**
-//	 * @return the dialogoAyuda
-//	 */
-//	public DialogoAyudas getDialogoAyuda() {
-//		return dialogoAyuda;
-//	}
-//
-//	/**
-//	 * @return the dialogoPuntajes
-//	 */
-//	public DialogoPuntajes getDialogoPuntajes() {
-//		return dialogoPuntajes;
-//	}
 
 	/**
 	 * @return juego

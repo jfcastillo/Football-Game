@@ -15,17 +15,13 @@ public class PanelGoles extends JPanel{
 	private JLabel izquierda;
 	private JLabel derecha;
 	
-	private int golesI;
-	private int golesD;
+
 	
 	public PanelGoles(VentanaPrincipal vPrincipal) {
 		
 		this.vPrincipal = vPrincipal;
 		setBackground(Color.BLACK);
 		setLayout(new GridLayout());
-		
-		golesI=0;
-		golesD=0;
 		
 		Marcador = new JLabel("MARCADOR",SwingConstants.CENTER);
 		izquierda = new JLabel("0",SwingConstants.CENTER);
@@ -41,19 +37,32 @@ public class PanelGoles extends JPanel{
 		add(derecha);
 	}
 	
-	public void setGolesDerecha()
-	{
-		golesD+=1;
-		String g = Integer.toString(golesD);
-		derecha.setText(g);
-	}
 	
-	public void setGolesIzquierda()
-	{
-		golesI+=1;
-		String g = Integer.toString(golesI);
-		izquierda.setText(g);
+	
+	public JLabel getIzquierda() {
+		return izquierda;
 	}
+
+
+
+	public void setIzquierda(String izquierda) {
+		this.izquierda.setText(izquierda);
+	}
+
+
+
+	public JLabel getDerecha() {
+		return derecha;
+	}
+
+
+
+	public void setDerecha(String derecha) {
+		this.derecha.setText(derecha);
+
+	}
+
+
 	
 
 }

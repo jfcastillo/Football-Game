@@ -130,18 +130,18 @@ public class PanelJuego extends JPanel implements KeyListener {
 		}		
 		
 		
-		if (e.getKeyCode() == KeyEvent.VK_A) { // left
-		vPrincipal.moverPelota(1);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_D) { // Right
-		vPrincipal.moverPelota(2);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_W) {// up
-		vPrincipal.moverPelota(3);
-		}
-		if (e.getKeyCode() == KeyEvent.VK_S) { // down
-		vPrincipal.moverPelota(4);
-		}
+//		if (e.getKeyCode() == KeyEvent.VK_A) { // left
+//		vPrincipal.moverPelota(1);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_D) { // Right
+//		vPrincipal.moverPelota(2);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_W) {// up
+//		vPrincipal.moverPelota(3);
+//		}
+//		if (e.getKeyCode() == KeyEvent.VK_S) { // down
+//		vPrincipal.moverPelota(4);
+//		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) { // left
 //			vPrincipal.patearPelota(direccion);/

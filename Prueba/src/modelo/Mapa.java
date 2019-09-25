@@ -43,6 +43,12 @@ public class Mapa{
 	private Personaje[] personajes;
 	
 	private Ball pelota;
+	
+	/*
+	 * 0 jugador 0
+	 * 1 jugador 1
+	 */
+	private int[] marcador;
 	/**
 	 * Relación que representa la lista de Enemigo
 	 */
@@ -70,6 +76,7 @@ public class Mapa{
 		cantidadObjetos = 0;
 		personajes = new Personaje[2];
 		this.nivel = 1;
+		marcador = new int [2];
 	}
 
 	/**
@@ -77,6 +84,15 @@ public class Mapa{
 	 */
 	public Personaje[] getPersonaje() {
 		return personajes;
+	}
+	
+
+	public int[] getMarcador() {
+		return marcador;
+	}
+
+	public void setMarcador(int[] marcador) {
+		this.marcador = marcador;
 	}
 
 	public Ball getPelota() {

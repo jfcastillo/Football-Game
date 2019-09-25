@@ -9,14 +9,14 @@ import modelo.ObjetoMapa;
 import modelo.Personaje;
 import hilos.HiloColisionPelota;
 
-public class HiloColisionJugador extends Thread {
+public class HiloColisionesGenerales extends Thread {
 
 	private Personaje[] personajes;
 	private ObjetoMapa objeto;
 	private VentanaPrincipal vPrincipal;
 	private Ball balon;
 
-	public HiloColisionJugador(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal, Ball bal) {
+	public HiloColisionesGenerales(Personaje []personajes, ObjetoMapa objeto, VentanaPrincipal vPrincipal, Ball bal) {
 		super();
 		this.personajes = personajes;
 		this.objeto = objeto;
@@ -51,7 +51,7 @@ public class HiloColisionJugador extends Thread {
 						}
 						if(areaJugador.intersects(areaPel)) {
 							System.out.println("entre");
-//							balon.empujar();
+							//balon.empujar();
 							vPrincipal.moverPelota(personajes[i].darDireccionActual());
 //							balon.mover(personajes[i].darDireccionActual());
 //							HiloColisionPelota hiloColisionP = new HiloColisionPelota(personajes, objeto, vPrincipal, balon, i);
