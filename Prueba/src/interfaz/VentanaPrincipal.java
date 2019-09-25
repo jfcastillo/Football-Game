@@ -24,6 +24,7 @@ public class VentanaPrincipal extends JFrame {
 
 	private PanelJuego panelJuego;
 	
+	private PanelGoles panelGoles;
 	
 	private Cliente cliente;
 	
@@ -60,9 +61,11 @@ public class VentanaPrincipal extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		panelJuego = new PanelJuego(this);
+		panelGoles = new PanelGoles(this);
 		
 		setLocationRelativeTo(null);
 		add(panelJuego, BorderLayout.CENTER);
+		add(panelGoles, BorderLayout.NORTH);
 		pack();
 		setVisible(true);
 		//juego = new Juego();
@@ -130,6 +133,17 @@ public class VentanaPrincipal extends JFrame {
 		darMapa().getPelota().mover(direccion);
 		try {
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
+			int posx = darMapa().getPelota().getPosicionX();
+			int posy = darMapa().getPelota().getPosicionY();
+			System.out.println("la posicion x"+darMapa().getPelota().getPosicionX()+" "+"la posicion y "+darMapa().getPelota().getPosicionY());
+			if(posx<=160 && (posy>=220 && posy<=365))
+			{
+				panelGoles.setGolesDerecha();
+			}
+			else if(posx>=1096 && (posy>=220 && posy<=365))
+			{
+				panelGoles.setGolesIzquierda();
+			}
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
