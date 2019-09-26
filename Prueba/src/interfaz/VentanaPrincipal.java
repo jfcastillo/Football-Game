@@ -67,7 +67,7 @@ public class VentanaPrincipal extends JFrame {
 		add(panelJuego, BorderLayout.CENTER);
 		add(panelGoles, BorderLayout.NORTH);
 		pack();
-		setVisible(true);
+//		setVisible(true);
 		//juego = new Juego();
 	}
 
@@ -85,7 +85,10 @@ public class VentanaPrincipal extends JFrame {
 		juego.leerMapa();
 		setPlaying(true);
 		iniciarHilos();
-		
+		cliente.setNombre(nombreJugador);
+		System.out.println("--"+nombreJugador);
+
+	
 		
 		
 	}
@@ -94,7 +97,10 @@ public class VentanaPrincipal extends JFrame {
 	 * Método que re pinta la ventana
 	 */
 	public void refrescar() {
+
 		repaint();
+		this.asignarNombreUsuario();
+		
 	}
 
 	/**
@@ -284,6 +290,19 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public Mapa darMapa() {
 		return juego;
+	}
+	
+	public void asignarNombreUsuario() {
+		System.out.println(cliente.getNickName());
+		System.out.println(cliente.getId());
+		if(Integer.parseInt(cliente.getId())==0) {
+			panelGoles.cambiarNombreJugador1(cliente.getNickName());
+			
+		}
+		else if(Integer.parseInt(cliente.getId())==1){
+			panelGoles.cambiarNombreJugador2(cliente.getNickName());
+		}
+		
 	}
 
 	

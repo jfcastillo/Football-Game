@@ -10,6 +10,9 @@ import javax.swing.SwingConstants;
 
 public class PanelGoles extends JPanel{
 	
+
+
+
 	private VentanaPrincipal vPrincipal;
 	private JLabel Marcador;
 	private JLabel izquierda;
@@ -80,6 +83,23 @@ public class PanelGoles extends JPanel{
 		this.derecha.setText(derecha);
 
 	}
+
+	public JLabel getNomJug1() {
+		return nomJug1;
+	}
+
+
+
+
+
+
+
+	public JLabel getNomJug2() {
+		return nomJug2;
+	}
+
+
+
 
 
 	

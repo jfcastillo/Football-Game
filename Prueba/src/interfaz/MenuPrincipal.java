@@ -54,12 +54,14 @@ public class MenuPrincipal extends JFrame {
 		principal= new VentanaPrincipal();
 		try {
 			principal.inicializarJuego(nombreJugador);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		principal.setVisible(true);
 		this.setVisible(false);
+		
 	
 
 

@@ -31,6 +31,7 @@ public class Cliente {
 	private DataOutputStream out;
 	
 	private int direccionMovimiento;
+	private String nickName;
 	
 	private String id;
 	private boolean idRecibido;
@@ -93,6 +94,7 @@ public class Cliente {
 	                    		id = in.readUTF();
 	                    		idRecibido= true;
 	                    		System.out.println(id);
+	                    
 	                    	
 	                    	}
 	                    	else {
@@ -181,6 +183,21 @@ public class Cliente {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public void setNombre(String nombreJugador) {
+		nickName= nombreJugador;
+		
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+	
+	
 
 	
 
