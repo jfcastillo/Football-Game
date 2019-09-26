@@ -5,6 +5,8 @@ public class Ball extends Personaje implements Movible {
 	public final static int  ANCHO = 25;
 	public final static int ALTO = 25;
 	public final static String RUTA = "./resources/Imagenes/balls/balon.png";
+	public final static int X_INICIAL_BALON = 624;
+	public final static int Y_INICIAL_BALON = 300;
 
 	public Ball(int posicionX, int posicionY, String rutaImg) {
 		super(posicionX, posicionY, rutaImg, 3);

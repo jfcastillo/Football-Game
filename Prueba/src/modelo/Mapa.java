@@ -36,6 +36,8 @@ public class Mapa{
 
 	public boolean isPlaying;
 	
+	private Cronometro crono;
+	
 	private ObjetoMapa primerObjetoMapa;
 	/**
 	 * Relación que representa la clase Personaje
@@ -77,6 +79,7 @@ public class Mapa{
 		personajes = new Personaje[2];
 		this.nivel = 1;
 		marcador = new int [2];
+		
 	}
 
 	/**
@@ -170,7 +173,7 @@ public class Mapa{
 			cantidadObjetos++;
 			break;
 		case 'O':
-			o = new Ball(i * Ball.ANCHO, contadorLineas * Ball.ALTO, Ball.RUTA);
+			o = new Ball(Ball.X_INICIAL_BALON, Ball.Y_INICIAL_BALON, Ball.RUTA);
 			break;
 //		case 'C':
 //			o = new Item(i * Item.ANCHO, contadorLineas * Item.ALTO, "imagen de un Item", cantidadObjetos, Item.COMIDA);
@@ -181,11 +184,11 @@ public class Mapa{
 //			cantidadEnemigos++;
 //			break;
 		case '*':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN3, 0);
+			o = new Personaje(Personaje.X_INICIAL_JUG1, Personaje.Y_INICIAL, Personaje.IMAGEN3, 0);
 			
 			break;
 		case '#':
-			o = new Personaje(i * 32, contadorLineas * 32, Personaje.IMAGEN2ROTADA, 1);
+			o = new Personaje(Personaje.X_INICIAL_JUG2, Personaje.Y_INICIAL, Personaje.IMAGEN2ROTADA, 1);
 			break;
 		}
 

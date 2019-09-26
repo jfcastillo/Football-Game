@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -19,6 +20,9 @@ public class PanelGoles extends JPanel{
 	private JLabel derecha;
 	private JLabel nomJug1;
 	private JLabel nomJug2;
+	private JLabel labTiempo;
+	private JLabel labCronometro;
+	
 	
 
 	
@@ -28,6 +32,10 @@ public class PanelGoles extends JPanel{
 		setBackground(Color.BLACK);
 		setLayout(new GridLayout());
 		
+		labTiempo= new JLabel("Primer tiempo",SwingConstants.CENTER);
+		labTiempo.setForeground(Color.WHITE);
+		labCronometro = new JLabel("00:00",SwingConstants.CENTER);
+		labCronometro.setForeground(Color.WHITE);
 		Marcador = new JLabel("MARCADOR",SwingConstants.CENTER);
 		izquierda = new JLabel("0",SwingConstants.CENTER);
 		derecha = new JLabel("0",SwingConstants.CENTER);
@@ -43,13 +51,13 @@ public class PanelGoles extends JPanel{
 		labAux2.setBackground(Color.BLACK);
 		nomJug1.setForeground(Color.WHITE);
 		nomJug2.setForeground(Color.WHITE);
-		add(labAux1);
+		add(labTiempo);
 		add(nomJug1);
 		add(izquierda);
 		add(Marcador);
 		add(nomJug2);
 		add(derecha);
-		add(labAux2);
+		add(labCronometro);
 	}
 	
 	
@@ -96,6 +104,37 @@ public class PanelGoles extends JPanel{
 
 	public JLabel getNomJug2() {
 		return nomJug2;
+	}
+
+
+
+	public void refrescarReloj(int min, int seg) {
+
+		int minutos = min;
+		int segundos = seg;
+		if(segundos <=8) {
+			labCronometro.setText("0"+minutos+":"+"0"+segundos);
+		}
+		else {
+			labCronometro.setText("0"+minutos+":"+segundos);
+		}
+
+
+		
+	}
+
+
+
+	public void segundoTiempo() {
+		labTiempo.setText("Segundo Tiempo");
+		
+	}
+
+
+
+	public void TerminarPartido() {
+		labTiempo.setText("Partido Finalizado");
+		
 	}
 
 

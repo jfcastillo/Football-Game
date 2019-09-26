@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import hilos.HiloColisionesGenerales;
+import hilos.HiloTiempo;
 import hilos.HiloColisionPelota;
 import modelo.Ball;
 import modelo.Cliente;
@@ -99,7 +100,12 @@ public class VentanaPrincipal extends JFrame {
 	public void refrescar() {
 
 		repaint();
-		this.asignarNombreUsuario();
+	//	this.asignarNombreUsuario();
+		
+	}
+	public void refrescarReloj(int min, int seg) {
+		panelGoles.refrescarReloj(min,seg);
+		
 		
 	}
 
@@ -164,7 +170,7 @@ public class VentanaPrincipal extends JFrame {
 		darMarcador()[0]+=1;
 		String g = Integer.toString(darMarcador()[0]);
 		panelGoles.setDerecha(g);
-		reinciarBalon();
+		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
 		
 	}
@@ -174,15 +180,35 @@ public class VentanaPrincipal extends JFrame {
 		darMarcador()[1]+=1;
 		String g = Integer.toString(darMarcador()[0]);
 		panelGoles.setIzquierda(g);
-		reinciarBalon();
+		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
 	}
 
-	public void reinciarBalon() {
-		Dimension size = getSize();
-		darBall().setPosicionX(size.width/2);
-		darBall().setPosicionY(size.height/2);
+
+	public void reiniciarTodo() {
+		reiniciarBalon();
+		reiniciarJugadores();
+		
 	}
+
+	private void reiniciarJugadores() {
+		this.juego.getPersonaje()[0].setPosicionX(Personaje.X_INICIAL_JUG1);
+		this.juego.getPersonaje()[1].setPosicionX(Personaje.X_INICIAL_JUG2);
+		this.juego.getPersonaje()[0].setPosicionY(Personaje.Y_INICIAL);
+		this.juego.getPersonaje()[1].setPosicionY(Personaje.Y_INICIAL);
+		refrescar();
+		
+	}
+
+
+	private void reiniciarBalon() {
+		Dimension size = getSize();
+		darBall().setPosicionX(Ball.X_INICIAL_BALON);
+		darBall().setPosicionY(Ball.Y_INICIAL_BALON);
+		refrescar();
+		
+	}
+
 
 	public Cliente getCliente() {
 		return cliente;
@@ -220,7 +246,15 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarHilos() {
 		iniciarColisionesGenerales();
+		iniciarHiloCronometro();
+		
 		//iniciarColisionPelota();
+		
+	}
+	public void iniciarHiloCronometro() {
+		HiloTiempo crono = new HiloTiempo(this);
+		crono.start();
+		
 		
 	}
 
@@ -302,6 +336,18 @@ public class VentanaPrincipal extends JFrame {
 		else if(Integer.parseInt(cliente.getId())==1){
 			panelGoles.cambiarNombreJugador2(cliente.getNickName());
 		}
+		
+	}
+
+
+	public void segundoTiempo() {
+		panelGoles.segundoTiempo();
+		
+	}
+
+
+	public void terminarPartido() {
+		panelGoles.TerminarPartido();
 		
 	}
 

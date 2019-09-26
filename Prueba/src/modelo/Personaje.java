@@ -6,6 +6,11 @@ import java.io.Serializable;
  * Esta clase representa las características del personaje
  **/
 public class Personaje extends Imagen implements Movible{
+	
+	public final static int X_INICIAL_JUG1 = 255;
+	public final static int X_INICIAL_JUG2 = 1050;
+	public final static int Y_INICIAL=273;
+	
 
 	/**
 	 * Constante que representa el ancho del personaje

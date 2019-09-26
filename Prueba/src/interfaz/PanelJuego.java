@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -18,7 +20,7 @@ import modelo.Personaje;
 /**
  * Esta clase representa la clase PanelJuego
  */
-public class PanelJuego extends JPanel implements KeyListener {
+public class PanelJuego extends JPanel implements KeyListener,MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +35,7 @@ public class PanelJuego extends JPanel implements KeyListener {
 	 * atributos y relaciones.
 	 */
 	public PanelJuego(VentanaPrincipal vPrincipal) {
-		
+		addMouseListener(this);
 		this.vPrincipal = vPrincipal;
 		setBackground(Color.GRAY);
 		addKeyListener(this);
@@ -173,6 +175,36 @@ public class PanelJuego extends JPanel implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		System.out.println(e.getX()+" X "+e.getY()+" Y");
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

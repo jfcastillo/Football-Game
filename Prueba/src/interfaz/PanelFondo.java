@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class PanelFondo extends JPanel implements KeyListener{
 	 * @param vPrincipal
 	 */
 	public PanelFondo(VentanaPrincipal vPrincipal) {
+
 		this.vPrincipal = vPrincipal;
 		panelBotones = new JPanel();
 		panelBotones.setBorder(new EmptyBorder(10, 175, 20, 175));
@@ -117,5 +120,6 @@ public class PanelFondo extends JPanel implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
