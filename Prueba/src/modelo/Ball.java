@@ -16,23 +16,23 @@ public class Ball extends Personaje implements Movible {
 	public void mover(int direccion) {
 
 		if (direccion == 1) {
-			moverIzquierda(2);
+			moverIzquierda(DISTANCIA_QUE_SE_MUEVE_1);
 			
-			direccionActual(1);
+			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 		if (direccion == 2) {
-			moverDerecha(2);
+			moverDerecha(DISTANCIA_QUE_SE_MUEVE_1);
 
 			
-			direccionActual(2);
+			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 		if (direccion == 3) {
 			moverArriba(2);
-			direccionActual(3);
+			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 		if (direccion == 4) {
 			moverAbajo(2);
-			direccionActual(4);
+			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 	}
 	public void mover(int direccion, int distancia) {

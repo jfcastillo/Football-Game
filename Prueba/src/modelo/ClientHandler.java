@@ -34,12 +34,12 @@ class ClientHandler implements Runnable
     @Override
     public void run() { 
   
-         String received;
-        while (true)  
+        String received;
+        boolean stop = true;
+        while (stop)  
         { 
             try
-            { 
-            	
+            {         	
             	
 //            	
 //                // receive the string 
@@ -101,6 +101,17 @@ class ClientHandler implements Runnable
             } 
               
         }
+        try
+        { 
+            // closing resources 
+            this.dis.close(); 
+            this.dos.close(); 
+              
+        }catch(IOException e){ 
+            e.printStackTrace(); 
+        } 
+              
+       
          
            
           

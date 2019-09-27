@@ -144,7 +144,7 @@ public class VentanaPrincipal extends JFrame {
 			{
 				setGolesDerecha();
 			}
-			else if(posx>=1100 && (posy>=220 && posy<=365))
+			else if(posx>=1100 && (posy>=220 && posy<=410))
 			{
 				setGolesIzquierda();
 			}
@@ -281,30 +281,7 @@ public class VentanaPrincipal extends JFrame {
 		HiloPatearPelota hiloPa = new HiloPatearPelota(darPersonajes(), this, darMapa().getPelota(), Integer.parseInt(cliente.getId()));
 		hiloPa.start();
 	}
-	
-	public void iniciarColisionPelota() {
-//		HiloColisionPelota hiloColisionP = new HiloColisionPelota(darPersonajes(), darMapa().getPrimerObjetoMapa(),
-//				this, darMapa().getPelota());
-//		
-//		hiloColisionP.start();
-	}
-
-	
-	
-
-	
-
-//	public void iniciarHiloColisionPersonajeEnemigo() {
-//		Enemigo aux = darEnemigo();
-//		while (aux != null) {
-//			HiloColisionEnemigoDestroyer hilo = new HiloColisionEnemigoDestroyer(aux, darPersonaje(), this);
-//			hilo.start();
-//			aux = aux.getSiguiente();
-//		}
-//
-//	}
-
-	
+		
 
 	/**
 	 * @return juego

@@ -25,10 +25,10 @@ public class HiloPatearPelota extends Thread {
 			
 				
 //				vPrincipal.patearPelota();
-				pelota.mover(personajes[id].darDireccionActual());
+				pelota.mover(personajes[id].darDireccionActual(),8);
 				vPrincipal.moverPelota(personajes[id].darDireccionActual());
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(300);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();				
