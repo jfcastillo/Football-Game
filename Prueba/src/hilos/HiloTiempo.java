@@ -22,6 +22,10 @@ public class HiloTiempo extends Thread {
 	@Override
 	public void run() {
 		while(!terminar) {
+			if(crono.getMinutos()==0&&crono.getSegundos()==0) {
+				JOptionPane.showMessageDialog(principal, "El partido va a iniciar, presione ok cuando esté listo.");
+				
+			}
 			crono.avanzar();
 			principal.refrescarReloj(crono.getMinutos(),crono.getSegundos());
 			try {
@@ -30,6 +34,7 @@ public class HiloTiempo extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			if(crono.getMinutos()==1&&crono.getSegundos()==0) {
 			principal.reiniciarTodo();
 			JOptionPane.showMessageDialog(principal, "Se termina el primer tiempo.");

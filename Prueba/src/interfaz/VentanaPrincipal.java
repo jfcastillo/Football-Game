@@ -88,7 +88,13 @@ public class VentanaPrincipal extends JFrame {
 		juego.leerMapa();
 		setPlaying(true);
 		iniciarHilos();
-		cliente.setNombre(nombreJugador);
+//		cliente.setNombre(nombreJugador);
+		if(Integer.parseInt(cliente.getId())==-1||Integer.parseInt(cliente.getId())==0) {
+			panelGoles.setNomJug1(nombreJugador);
+		}
+		else {
+			panelGoles.setNomJug2(nombreJugador);
+		}
 		System.out.println("--"+nombreJugador);
 
 	
@@ -178,6 +184,7 @@ public class VentanaPrincipal extends JFrame {
 		panelGoles.setDerecha(g);
 		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+		reiniciarTodo();
 		
 	}
 	
@@ -188,6 +195,7 @@ public class VentanaPrincipal extends JFrame {
 		panelGoles.setIzquierda(g);
 		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+		reiniciarTodo();
 	}
 
 
@@ -254,6 +262,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarHilos() {
 		iniciarColisionesGenerales();
+	
 		iniciarHiloCronometro();
 		
 		//iniciarColisionPelota();
