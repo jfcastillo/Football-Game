@@ -67,10 +67,10 @@ class ClientHandler implements Runnable
                         if (mc.name.equals(recipient) && mc.isloggedin==true)  
                         { 
                             mc.dos.writeUTF(positions); 
+                            nombreEnviado = true;
                             break; 
                         } 
                     }
-                    nombreEnviado = true;
                 }
                 else {
                 	

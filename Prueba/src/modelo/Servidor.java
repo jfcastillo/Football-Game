@@ -38,7 +38,7 @@ public class Servidor {
 		try {
 			serverSocket = new ServerSocket(PORT);
 			System.out.println("::Servidor escuchando a los posibles clientes::");
-			int clave = (int) (Math.random() * 20) + 1;
+		//	int clave = (int) (Math.random() * 20) + 1;
 
 			
 			while(true) {

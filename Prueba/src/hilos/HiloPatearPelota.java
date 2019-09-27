@@ -28,13 +28,13 @@ public class HiloPatearPelota extends Thread {
 				pelota.mover(personajes[id].darDireccionActual(),8);
 				vPrincipal.moverPelota(personajes[id].darDireccionActual());
 				try {
-					Thread.sleep(300);
+					Thread.sleep(25);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();				
 				}
 				c++;
-				if (c==10) {
+				if (c==20) {
 					si = false;
 				}
 			
