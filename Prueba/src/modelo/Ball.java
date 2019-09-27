@@ -16,33 +16,22 @@ public class Ball extends Personaje implements Movible {
 	public void mover(int direccion) {
 
 		if (direccion == 1) {
-			moverIzquierda(DISTANCIA_QUE_SE_MUEVE_2);
-//			if (getRutaImagen().equals(IMAGEN3)) {
-//				setRutaImagen(IMAGEN3ROTADA);
-//			}
-//			else if (getRutaImagen().equals(IMAGEN2)) {
-//				setRutaImagen(IMAGEN2ROTADA);
-//			}
+			moverIzquierda(2);
 			
 			direccionActual(1);
 		}
 		if (direccion == 2) {
-			moverDerecha(DISTANCIA_QUE_SE_MUEVE_2);
-//			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
-//				setRutaImagen(IMAGEN3);
-//			}
-//			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
-//				setRutaImagen(IMAGEN2);
-//			}
+			moverDerecha(2);
+
 			
 			direccionActual(2);
 		}
 		if (direccion == 3) {
-			moverArriba(DISTANCIA_QUE_SE_MUEVE_2);
+			moverArriba(2);
 			direccionActual(3);
 		}
 		if (direccion == 4) {
-			moverAbajo(DISTANCIA_QUE_SE_MUEVE_2);
+			moverAbajo(2);
 			direccionActual(4);
 		}
 	}
@@ -50,23 +39,12 @@ public class Ball extends Personaje implements Movible {
 
 		if (direccion == 1) {
 			moverIzquierda(distancia);
-//			if (getRutaImagen().equals(IMAGEN3)) {
-//				setRutaImagen(IMAGEN3ROTADA);
-//			}
-//			else if (getRutaImagen().equals(IMAGEN2)) {
-//				setRutaImagen(IMAGEN2ROTADA);
-//			}
+
 			
 			direccionActual(1);
 		}
 		if (direccion == 2) {
 			moverDerecha(distancia);
-//			if (getRutaImagen().equals(IMAGEN3ROTADA)) {
-//				setRutaImagen(IMAGEN3);
-//			}
-//			else if (getRutaImagen().equals(IMAGEN2ROTADA)) {
-//				setRutaImagen(IMAGEN2);
-//			}
 			
 			direccionActual(2);
 		}

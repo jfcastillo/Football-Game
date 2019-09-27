@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import hilos.HiloPatearPelota;
 import modelo.Bloque;
 
 import modelo.Mapa;
@@ -146,7 +147,7 @@ public class PanelJuego extends JPanel implements KeyListener,MouseListener {
 //		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) { // left
-//			vPrincipal.patearPelota(direccion);/
+			vPrincipal.iniciarPatearPelota();
 		}
 		
 //		if(vPrincipal.getCliente().getId().equals("0")) {

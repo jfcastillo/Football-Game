@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import hilos.HiloColisionesGenerales;
+import hilos.HiloPatearPelota;
+import hilos.HiloPintar;
 import hilos.HiloTiempo;
 import hilos.HiloColisionPelota;
 import modelo.Ball;
@@ -123,7 +125,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		try {
 			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
-			
+			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,7 +140,7 @@ public class VentanaPrincipal extends JFrame {
 			int posx = darMapa().getPelota().getPosicionX();
 			int posy = darMapa().getPelota().getPosicionY();
 			System.out.println("la posicion x"+darMapa().getPelota().getPosicionX()+" "+"la posicion y "+darMapa().getPelota().getPosicionY());
-			if(posx==120 && (posy>=220 && posy<=365))
+			if(posx==160 && (posy>=220 && posy<=416))
 			{
 				setGolesDerecha();
 			}
@@ -153,8 +155,12 @@ public class VentanaPrincipal extends JFrame {
 		refrescar();
 	}
 	
-	public void patearPelota(int direccion) {
-		darMapa().getPelota().mover(direccion, 1);
+	public void patearPelota() {
+		if (darPersonaje().isTieneBalon()) {
+			darPersonaje().setTieneBalon(false);
+			iniciarPatearPelota();
+			
+		}
 		try {
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
 		} catch (NumberFormatException | IOException e) {
@@ -193,9 +199,11 @@ public class VentanaPrincipal extends JFrame {
 
 	private void reiniciarJugadores() {
 		this.juego.getPersonaje()[0].setPosicionX(Personaje.X_INICIAL_JUG1);
+		this.juego.getPersonaje()[0].setTieneBalon(false);
 		this.juego.getPersonaje()[1].setPosicionX(Personaje.X_INICIAL_JUG2);
 		this.juego.getPersonaje()[0].setPosicionY(Personaje.Y_INICIAL);
 		this.juego.getPersonaje()[1].setPosicionY(Personaje.Y_INICIAL);
+		this.juego.getPersonaje()[1].setTieneBalon(false);
 		refrescar();
 		
 	}
@@ -251,20 +259,27 @@ public class VentanaPrincipal extends JFrame {
 		//iniciarColisionPelota();
 		
 	}
+	public void iniciarHiloRepintar() {
+		HiloPintar pintar = new HiloPintar(this);
+		pintar.start();
+	}
 	public void iniciarHiloCronometro() {
 		HiloTiempo crono = new HiloTiempo(this);
 		crono.start();
 		
 		
 	}
-
-
-
+	
 	public void iniciarColisionesGenerales() {
 		HiloColisionesGenerales hiloColisionJ = new HiloColisionesGenerales(darPersonajes(), darMapa().getPrimerObjetoMapa(),
 				this, darBall());
 		
 		hiloColisionJ.start();
+	}
+	
+	public void iniciarPatearPelota() {
+		HiloPatearPelota hiloPa = new HiloPatearPelota(darPersonajes(), this, darMapa().getPelota(), Integer.parseInt(cliente.getId()));
+		hiloPa.start();
 	}
 	
 	public void iniciarColisionPelota() {

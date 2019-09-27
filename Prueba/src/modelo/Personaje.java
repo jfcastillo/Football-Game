@@ -60,6 +60,10 @@ public class Personaje extends Imagen implements Movible{
 	private int puntos;
 	
 	private int id;
+	
+	private boolean tieneBalon;
+	
+	private Ball balon;
 
 	/**
 	 * @param posicionX
@@ -74,6 +78,8 @@ public class Personaje extends Imagen implements Movible{
 		mueveIzquierda = false;
 		mueveDerecha = false;
 		this.id = id;
+		tieneBalon = false;
+		balon = null;
 
 	//	lanzandoHabilidad = false;
 
@@ -81,6 +87,9 @@ public class Personaje extends Imagen implements Movible{
 		puntos = 0;
 		vida = 100;
 	}
+	
+	
+	
 
 //	public boolean isLanzandoHabilidad() {
 //		return lanzandoHabilidad;
@@ -97,6 +106,27 @@ public class Personaje extends Imagen implements Movible{
 //	public void setHabilidadActual(Habilidad habilidadActual) {
 //		this.habilidadActual = habilidadActual;
 //	}
+	
+
+	public boolean isTieneBalon() {
+		return tieneBalon;
+	}
+
+
+	public Ball getBalon() {
+		return balon;
+	}
+
+
+	public void setBalon(Ball balon) {
+		this.balon = balon;
+	}
+
+
+	public void setTieneBalon(boolean tieneBalon) {
+		this.tieneBalon = tieneBalon;
+	}
+
 
 	public void sumarPuntos() {
 		puntos = puntos + 3;
@@ -263,6 +293,7 @@ public class Personaje extends Imagen implements Movible{
 				setRutaImagen(IMAGEN2ROTADA);
 			}
 			
+			
 			direccionActual(1);
 		}
 		if (direccion == 2) {
@@ -283,6 +314,9 @@ public class Personaje extends Imagen implements Movible{
 		if (direccion == 4) {
 			moverAbajo(DISTANCIA_QUE_SE_MUEVE_1);
 			direccionActual(4);
+		}
+		if (tieneBalon) {
+			balon.mover(direccion);
 		}
 	}
 
