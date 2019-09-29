@@ -1,10 +1,11 @@
 package modelo;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -30,6 +31,10 @@ public class Servidor {
 	 */
 	private static Socket socket;
 	
+	private static DatagramSocket socketMulti;
+    private static InetAddress group;
+    private static byte[] buf;
+	
 	public static void main(String[] args) {
 		
 		DataInputStream in;
@@ -37,10 +42,8 @@ public class Servidor {
 		
 		try {
 			serverSocket = new ServerSocket(PORT);
-			System.out.println("::Servidor escuchando a los posibles clientes::");
-		//	int clave = (int) (Math.random() * 20) + 1;
-
-			
+			System.out.println("Servidor escuchando");
+			long tiempoIni = System.currentTimeMillis();
 			while(true) {
 				
 				socket = serverSocket.accept();
@@ -55,10 +58,31 @@ public class Servidor {
 				i++;
 				ar.add(clienteHandler);
 				t.start();
-				//out.writeUTF(clave+"");
-				
-			//	socket.close();
-			//	System.out.println("::El cliente fue desconectado del server::");
+			
+				Thread publicidad = new Thread(new Runnable() {
+					boolean stop = false;
+
+					@Override
+					public void run() {
+						
+						while(!stop) {
+						// TODO Auto-generated method stub
+							long tiempoFini = System.currentTimeMillis();
+							if(tiempoFini- tiempoIni >= 60000 && !stop) {
+								System.out.println("entreeeeeeeeeeee");
+								try {
+									multicastPublisher("PUBLICIDAD");
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								stop = true;
+							}
+						}
+					}
+					
+				});
+				publicidad.start();
 			}
 	
 		} catch (IOException e) {
@@ -66,39 +90,17 @@ public class Servidor {
 		}		
 	}
 	
-	  public static String convertStringToHex(String str){
-		  char[] chars = str.toCharArray();  
-		  StringBuffer hex = new StringBuffer();
-		  for(int i = 0; i < chars.length; i++){
-		    hex.append(Integer.toHexString((int)chars[i]));
-		  } 
-		  return hex.toString();
-	  }
+	 public static void multicastPublisher(String multicastMessage) throws IOException {
+		        socketMulti = new DatagramSocket();
+		        group = InetAddress.getByName("230.0.0.0");
+		        buf = multicastMessage.getBytes();
+		 
+		        DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
+		        socketMulti.send(packet);
+		        socketMulti.close();
+		    }
+
 
 	
-	/**
-	 * Metodo encargado de realizar la encriptacion de Cesar, sumando 2 posiciones al ASCII
-	 * de cada caracter
-	 * @param mensajeObtenidoCliente != Null && != ""
-	 * @return
-	 */
-	private static String metodoServicioServer(String mensajeObtenidoCliente) {
-		
-		String respuesta = "";
-		char caracter ;
-		
-		if(mensajeObtenidoCliente != "") {
-			for (int i = 0; i < mensajeObtenidoCliente.length(); i++) {
-				caracter = mensajeObtenidoCliente.charAt(i);
-				caracter = (char) (caracter +3);
-				respuesta += Character.toString((caracter)) + "";
-			}
-		}
-		else {
-			respuesta = "::El cliente no envio texto para encriptar::";
-		}
-		return respuesta;
-		
-	}
 
 }

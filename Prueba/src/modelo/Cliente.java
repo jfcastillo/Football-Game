@@ -7,6 +7,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.Socket;
 
 import interfaz.VentanaPrincipal;
@@ -36,6 +39,10 @@ public class Cliente {
 	private String id;
 	private boolean idRecibido;
 	
+	//variables para el multicast UDP
+	protected MulticastSocket socketMulti = null;
+    protected byte[] buf = new byte[256];
+	
 	private VentanaPrincipal vPrincipal;
 	
 	/**
@@ -57,28 +64,10 @@ public class Cliente {
 			System.out.println("::Cliente disponible para ser atendido:: \nIngrese "
 					+ "el mensaje para encriptar!!::");
 			
-			socket = new Socket(LOCAL_HOST, PORT);
-		//	String mensaje = br.readLine();			
-			
+			socket = new Socket(LOCAL_HOST, PORT);			
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
-									
-			// sendMessage thread 
-//	        Thread sendMessage = new Thread(new Runnable()  
-//	        { 
-//	            @Override
-//	            public void run() { 
-//	                while (true) { 
-//	                    try { 
-//		                    String msg = br.readLine();
-//	                        out.writeUTF(msg); 
-//	                    } catch (IOException e) { 
-//	                        e.printStackTrace(); 
-//	                    } 
-//	                } 
-//	            } 
-//	        }); 
-	          
+			
 	        // readMessage thread 
 			//hilo para estar pendiente cuando el servidor envíe un mensaje al cliente
 	        Thread readMessage = new Thread(new Runnable()  
@@ -100,7 +89,7 @@ public class Cliente {
 	                    	else {
 	                    		String msg = in.readUTF(); 
 	                    		recibirDatos(msg);
-	                    		//System.out.println(msg); 
+	                    		System.out.println(msg); 
 	                    		
 	                    	}
 	                    } catch (IOException e) { 
@@ -109,10 +98,42 @@ public class Cliente {
 	                    } 
 	                } 
 	            } 
-	        }); 
+	        });
+	        
+	        Thread receiveMulti = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					
+					try {
+						socketMulti = new MulticastSocket(4446);
+						InetAddress group = InetAddress.getByName("230.0.0.0");
+						socketMulti.joinGroup(group);
+						while (true) {
+							DatagramPacket packet = new DatagramPacket(buf, buf.length);
+							socketMulti.receive(packet);
+							String received = new String(
+									packet.getData(), 0, packet.getLength());
+							if ("PUBLICIDAD".equals(received)) {
+								System.out.println(received);
+								break;
+							}
+						}
+						socketMulti.leaveGroup(group);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        socketMulti.close();
+				}
+	        	
+	        	
+	        });
 	  
 //	        sendMessage.start(); 
 	        readMessage.start(); 
+	        receiveMulti.start();
 		
 	        /*
 			bw.write("Su encriptacion fue : " + mensajeDelServidor);
