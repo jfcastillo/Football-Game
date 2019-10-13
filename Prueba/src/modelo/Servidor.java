@@ -8,6 +8,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Servidor {
@@ -35,6 +36,10 @@ public class Servidor {
     private static InetAddress group;
     private static byte[] buf;
 	
+    /**
+     * Mapa de socket de los clientes conectados
+     */
+    private HashMap<Socket, String> mapClients;
 	public static void main(String[] args) {
 		
 		DataInputStream in;
