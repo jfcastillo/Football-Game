@@ -14,7 +14,7 @@ import java.util.Vector;
 public class Servidor {
 	
 	// Vector to store active clients 
-    static Vector<ClientHandler> ar = new Vector<>(); 
+    static Vector<String> ar = new Vector<>(); 
       
     // counter for clients 
     static int i = 0; 
@@ -39,7 +39,28 @@ public class Servidor {
     /**
      * Mapa de socket de los clientes conectados
      */
-    private HashMap<Socket, String> mapClients;
+    private HashMap<String, ClientHandler> mapClients;
+    
+    public Servidor() {
+    	mapClients = new HashMap<String, ClientHandler>();
+    }
+    
+    public void addClient(String nickname, ClientHandler cliente) {
+    	mapClients.put(nickname,cliente);
+    }
+    
+	public HashMap<String, ClientHandler> getMapClients() {
+		return mapClients;
+	}
+
+
+
+	public void setMapClients(HashMap<String, ClientHandler> mapClients) {
+		this.mapClients = mapClients;
+	}
+
+
+
 	public static void main(String[] args) {
 		
 		DataInputStream in;
@@ -57,7 +78,7 @@ public class Servidor {
 				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
 			
-				ClientHandler clienteHandler = new ClientHandler(socket, i+"", in, out);
+				String clienteHandler = new String(socket, i+"", in, out);
 				Thread t = new Thread(clienteHandler);
 				
 				i++;

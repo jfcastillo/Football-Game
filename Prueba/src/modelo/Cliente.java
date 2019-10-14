@@ -50,9 +50,10 @@ public class Cliente {
 	 * @param args
 	 */
 	
-	public Cliente(VentanaPrincipal vPrincipal) {
+	public Cliente(VentanaPrincipal vPrincipal, String nickName) {
 		id = "-1";
 		this.vPrincipal = vPrincipal;
+		this.nickName = nickName;
 		
 		direccionMovimiento = 0;
 		idRecibido = false;
@@ -67,6 +68,7 @@ public class Cliente {
 			socket = new Socket(LOCAL_HOST, PORT);			
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
+			out.writeUTF(nickName);
 			
 	        // readMessage thread 
 			//hilo para estar pendiente cuando el servidor envíe un mensaje al cliente

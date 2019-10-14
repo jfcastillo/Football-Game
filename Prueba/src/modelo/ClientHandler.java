@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-class ClientHandler implements Runnable  
+public class ClientHandler implements Runnable  
 { 
     Scanner scn = new Scanner(System.in); 
     private String name; 
@@ -25,7 +25,7 @@ class ClientHandler implements Runnable
         this.dos = dos; 
         this.name = name; 
         this.s = s; 
-        this.isloggedin=true; 
+        this.isloggedin = true; 
         nombreEnviado = false;
         positions = "";
         recipient = "";

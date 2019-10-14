@@ -54,8 +54,8 @@ public class VentanaPrincipal extends JFrame {
 	 * Metodo constructor de la clase ventanaPrincipal. Se encarga de inicializar
 	 * los atributos y relaciones.
 	 */
-	public VentanaPrincipal() {
-		cliente = new Cliente(this);
+	public VentanaPrincipal(String nombreCliente) {
+		cliente = new Cliente(this, nombreCliente);
 		setMinimumSize(new Dimension(ANCHO, ALTURA));
 		setMaximumSize(new Dimension(ANCHO, ALTURA));
 		setPreferredSize(new Dimension(ANCHO, ALTURA));

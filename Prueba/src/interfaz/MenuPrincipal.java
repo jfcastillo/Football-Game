@@ -51,7 +51,7 @@ public class MenuPrincipal extends JFrame {
 
 
 	public void iniciarJuego(String nombreJugador) {
-		principal= new VentanaPrincipal();
+		principal= new VentanaPrincipal(nombreJugador);
 		try {
 			principal.inicializarJuego(nombreJugador);
 			
