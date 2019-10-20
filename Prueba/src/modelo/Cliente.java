@@ -12,6 +12,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 
+import hilos.HiloLeerCliente;
 import interfaz.VentanaPrincipal;
 
 public class Cliente {
@@ -39,9 +40,13 @@ public class Cliente {
 	private String id;
 	private boolean idRecibido;
 	
+	private boolean isConnected;
+	
 	//variables para el multicast UDP
 	protected MulticastSocket socketMulti = null;
     protected byte[] buf = new byte[256];
+    
+    private HiloLeerCliente hiloLeer;
 	
 	private VentanaPrincipal vPrincipal;
 	
@@ -50,10 +55,11 @@ public class Cliente {
 	 * @param args
 	 */
 	
-	public Cliente(VentanaPrincipal vPrincipal) {
+	public Cliente(VentanaPrincipal vPrincipal, String nickName) {
 		id = "-1";
 		this.vPrincipal = vPrincipal;
-		
+		this.nickName = nickName;
+		isConnected = true;
 		direccionMovimiento = 0;
 		idRecibido = false;
 		try {
@@ -61,44 +67,47 @@ public class Cliente {
 			BufferedReader br = new BufferedReader(new InputStreamReader( System.in));
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 			
-			System.out.println("::Cliente disponible para ser atendido:: \nIngrese "
-					+ "el mensaje para encriptar!!::");
+			System.out.println("::Cliente disponible para ser atendido::");
 			
 			socket = new Socket(LOCAL_HOST, PORT);			
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
+			out.writeUTF(nickName);
+			
+			hiloLeer = new HiloLeerCliente(this, br, bw, in, out);
+			hiloLeer.start();
 			
 	        // readMessage thread 
 			//hilo para estar pendiente cuando el servidor envíe un mensaje al cliente
-	        Thread readMessage = new Thread(new Runnable()  
-	        { 
-	            @Override
-	            public void run() { 
-	  
-	                while (true) { 
-	                    try { 
-	                        // read the message sent to this client 
-	                    	
-	                    	if(!idRecibido) {
-	                    		id = in.readUTF();
-	                    		idRecibido= true;
-	                    		System.out.println(id);
-	                    
-	                    	
-	                    	}
-	                    	else {
-	                    		String msg = in.readUTF(); 
-	                    		recibirDatos(msg);
-	                    		System.out.println(msg); 
-	                    		
-	                    	}
-	                    } catch (IOException e) { 
-	  
-	                        e.printStackTrace(); 
-	                    } 
-	                } 
-	            } 
-	        });
+//	        Thread readMessage = new Thread(new Runnable()  
+//	        { 
+//	            @Override
+//	            public void run() { 
+//	  
+//	                while (true) { 
+//	                    try { 
+//	                        // read the message sent to this client 
+//	                    	
+//	                    	if(!idRecibido) {
+//	                    		id = in.readUTF();
+//	                    		idRecibido= true;
+//	                    		System.out.println(id);
+//	                    
+//	                    	
+//	                    	}
+//	                    	else {
+//	                    		String msg = in.readUTF(); 
+//	                    		recibirDatos(msg);
+//	                    		System.out.println(msg); 
+//	                    		
+//	                    	}
+//	                    } catch (IOException e) { 
+//	  
+//	                        e.printStackTrace(); 
+//	                    } 
+//	                } 
+//	            } 
+//	        });
 	        
 	        Thread receiveMulti = new Thread(new Runnable() {
 
@@ -132,7 +141,7 @@ public class Cliente {
 	        });
 	  
 //	        sendMessage.start(); 
-	        readMessage.start(); 
+//	        readMessage.start(); 
 	        receiveMulti.start();
 		
 	        /*
@@ -151,13 +160,38 @@ public class Cliente {
 		}
 	}
 	
+	
+	public boolean isConnected() {
+		return isConnected;
+	}
+
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
+
+
 	public void enviarDatos(String cadena) throws IOException {
-		if(this.id.equals("0")) {
-			out.writeUTF(cadena+"#"+"1"); 
-		}
-		else if(this.id.equals("1")) {
-			out.writeUTF(cadena+"#"+"0"); 
-		}
+//		int idC = Integer.parseInt(id);
+//		if (idC % 2 == 0) {
+//			idC = 0;
+//		}
+//		else {
+//			idC = 1;
+//		}
+////		if(this.id.equals("0")) {
+////			out.writeUTF(cadena+"#"+"1"); 
+////		}
+////		else if(this.id.equals("1")) {
+////			out.writeUTF(cadena+"#"+"0"); 
+////		}
+//		if(idC == 0) {
+//			out.writeUTF(cadena+"#"+"1"); 
+//		}
+//		else if(idC == 1) {
+//			out.writeUTF(cadena+"#"+"0"); 
+//		}
+		out.writeUTF(cadena);
 	}
 	
 	public void recibirDatos(String cadena) {
@@ -216,6 +250,16 @@ public class Cliente {
 
 	public String getNickName() {
 		return nickName;
+	}
+
+
+	public boolean isIdRecibido() {
+		return idRecibido;
+	}
+
+
+	public void setIdRecibido(boolean idRecibido) {
+		this.idRecibido = idRecibido;
 	}
 	
 	

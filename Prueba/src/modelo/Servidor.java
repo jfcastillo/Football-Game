@@ -8,7 +8,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Vector;
+
+import hilos.HiloConexionServidor;
 
 public class Servidor {
 	
@@ -34,8 +37,54 @@ public class Servidor {
 	private static DatagramSocket socketMulti;
     private static InetAddress group;
     private static byte[] buf;
+    
+    private String idUltimoCliente;
 	
+    /**
+     * Mapa de socket de los clientes conectados
+     */
+    private HashMap<String, ClientHandler> mapClients;
+    
+    public Servidor() {
+    	mapClients = new HashMap<String, ClientHandler>();
+    	idUltimoCliente = "";
+    }
+    
+    public void addClient(String nickname, ClientHandler cliente) {
+    	mapClients.put(nickname,cliente);
+    }
+    
+	public HashMap<String, ClientHandler> getMapClients() {
+		return mapClients;
+	}
+
+
+
+	public void setMapClients(HashMap<String, ClientHandler> mapClients) {
+		this.mapClients = mapClients;
+	}
+	
+
+
+
+	public String getIdUltimoCliente() {
+		return idUltimoCliente;
+	}
+
+	public void setIdUltimoCliente(String idUltimoCliente) {
+		this.idUltimoCliente = idUltimoCliente;
+	}
+
+	public static Vector<ClientHandler> getAr() {
+		return ar;
+	}
+
+	public static void setAr(Vector<ClientHandler> ar) {
+		Servidor.ar = ar;
+	}
+
 	public static void main(String[] args) {
+		Servidor server = new Servidor();
 		
 		DataInputStream in;
 		DataOutputStream out;
@@ -44,46 +93,48 @@ public class Servidor {
 			serverSocket = new ServerSocket(PORT);
 			System.out.println("Servidor escuchando");
 			long tiempoIni = System.currentTimeMillis();
-			while(true) {
-				
-				socket = serverSocket.accept();
-				System.out.println("El cliente se ha conectado!");
-				
-				in = new DataInputStream(socket.getInputStream());
-				out = new DataOutputStream(socket.getOutputStream());
-			
-				ClientHandler clienteHandler = new ClientHandler(socket, i+"", in, out);
-				Thread t = new Thread(clienteHandler);
-				
-				i++;
-				ar.add(clienteHandler);
-				t.start();
-			
-				Thread publicidad = new Thread(new Runnable() {
-					boolean stop = false;
-
-					@Override
-					public void run() {
-						
-						while(!stop) {
-						// TODO Auto-generated method stub
-							long tiempoFini = System.currentTimeMillis();
-							if(tiempoFini- tiempoIni >= 60000 && !stop) {
-								System.out.println("entreeeeeeeeeeee");
-								try {
-									multicastPublisher("PUBLICIDAD");
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								stop = true;
-							}
-						}
-					}
-					
-				});
-				publicidad.start();
-			}
+			HiloConexionServidor hiloConexion = new HiloConexionServidor(server, serverSocket);
+			hiloConexion.run();
+//			while(true) {
+//				
+////				socket = serverSocket.accept();
+////				System.out.println("El cliente se ha conectado!");
+////				
+////				in = new DataInputStream(socket.getInputStream());
+////				out = new DataOutputStream(socket.getOutputStream());
+////			
+////				ClientHandler clienteHandler = new ClientHandler(socket, i+"", in, out);
+////				Thread t = new Thread(clienteHandler);
+////				
+////				i++;
+////				ar.add(clienteHandler);
+////				t.start();
+//			
+//				Thread publicidad = new Thread(new Runnable() {
+//					boolean stop = false;
+//
+//					@Override
+//					public void run() {
+//						
+//						while(!stop) {
+//						// TODO Auto-generated method stub
+//							long tiempoFini = System.currentTimeMillis();
+//							if(tiempoFini- tiempoIni >= 60000 && !stop) {
+//								System.out.println("entreeeeeeeeeeee");
+//								try {
+//									multicastPublisher("PUBLICIDAD");
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//								stop = true;
+//							}
+//						}
+//					}
+//					
+//				});
+//				publicidad.start();
+//			}
 	
 		} catch (IOException e) {
 			e.printStackTrace();
