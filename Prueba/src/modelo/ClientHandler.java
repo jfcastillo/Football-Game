@@ -10,28 +10,102 @@ public class ClientHandler implements Runnable
 { 
     Scanner scn = new Scanner(System.in); 
     private String name; 
-    final DataInputStream dis; 
-    final DataOutputStream dos; 
-    Socket s; 
-    boolean isloggedin; 
-    boolean nombreEnviado;
-    String positions;
-    String recipient;
+    private DataInputStream dis; 
+    private DataOutputStream dos; 
+    private Socket socketClient; 
+    private boolean isloggedin; 
+    private boolean nombreEnviado;
+    private String positions;
+    private String recipient;
       
     // constructor 
-    public ClientHandler(Socket s, String name, 
-                            DataInputStream dis, DataOutputStream dos) { 
+    public ClientHandler(Socket s, String name, DataInputStream dis, DataOutputStream dos) { 
         this.dis = dis; 
         this.dos = dos; 
         this.name = name; 
-        this.s = s; 
+        this.socketClient = s; 
         this.isloggedin = true; 
         nombreEnviado = false;
         positions = "";
         recipient = "";
     } 
+    
+    
+    
   
-    @Override
+    public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public DataInputStream getDis() {
+		return dis;
+	}
+
+
+
+
+	public void setDis(DataInputStream dis) {
+		this.dis = dis;
+	}
+
+
+
+
+	public DataOutputStream getDos() {
+		return dos;
+	}
+
+
+
+
+	public void setDos(DataOutputStream dos) {
+		this.dos = dos;
+	}
+
+
+
+
+	public Socket getSocketClient() {
+		return socketClient;
+	}
+
+
+
+
+	public void setSocketClient(Socket socketClient) {
+		this.socketClient = socketClient;
+	}
+
+
+
+
+	public boolean isIsloggedin() {
+		return isloggedin;
+	}
+
+
+
+
+	public void setIsloggedin(boolean isloggedin) {
+		this.isloggedin = isloggedin;
+	}
+	
+	
+
+
+
+
+	@Override
     public void run() { 
   
         String received;
@@ -60,17 +134,17 @@ public class ClientHandler implements Runnable
                 	
                 	// search for the recipient in the connected devices list. 
                     // ar is the vector storing client of active users 
-                    for (ClientHandler mc : Servidor.ar)  
-                    { 
-                        // if the recipient is found, write on its 
-                        // output stream 
-                        if (mc.name.equals(recipient) && mc.isloggedin==true)  
-                        { 
-                            mc.dos.writeUTF(positions); 
-                            nombreEnviado = true;
-                            break; 
-                        } 
-                    }
+//                    for (ClientHandler mc : Servidor.ar)  
+//                    { 
+//                        // if the recipient is found, write on its 
+//                        // output stream 
+//                        if (mc.name.equals(recipient) && mc.isloggedin==true)  
+//                        { 
+//                            mc.dos.writeUTF(positions); 
+//                            nombreEnviado = true;
+//                            break; 
+//                        } 
+//                    }
                 }
                 else {
                 	
