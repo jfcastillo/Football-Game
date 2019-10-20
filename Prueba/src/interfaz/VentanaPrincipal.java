@@ -116,6 +116,29 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 	}
+	public void recibirPosiciones(String cadena) {
+		if(cadena.charAt(cadena.length()-1) == 'p') {
+			String arr[] = cadena.split(" ");			
+			darMapa().getPelota().setPosicionX(Integer.parseInt(arr[0]));
+			darMapa().getPelota().setPosicionY(Integer.parseInt(arr[1]));
+		}
+		else {			
+			String arr[] = cadena.split(" ");
+//			System.out.println(arr[2]);
+//			int posicion = -1;
+//			if (cliente.getId().equals("0")) {
+//				posicion = 1;
+//			}
+//
+//			else if(cliente.getId().equals("1")){
+//				posicion = 0;
+//			}
+			darPersonajes()[Integer.parseInt(arr[2])].setPosicionX(Integer.parseInt(arr[0]));
+			darPersonajes()[Integer.parseInt(arr[2])].setPosicionY(Integer.parseInt(arr[1]));
+			darPersonajes()[Integer.parseInt(arr[2])].setRutaImagen(arr[3]);
+		}
+		refrescar();
+	}
 
 	/**
 	 * Se encarga de llamar las instrucciones desde el modelo del mundo.
@@ -127,11 +150,17 @@ public class VentanaPrincipal extends JFrame {
 	 * Método que mueve el personaje
 	 */
 	public void moverJugador(int direccion) {//-----------------------------------------------------------
+		System.out.println(Integer.parseInt(cliente.getId()));
 		juego.mover(direccion, Integer.parseInt(cliente.getId()));
 		
 		try {
+			System.out.println("ventana: "+darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
+//			String cadena = darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+" "+darPersonaje().getRutaImagen();
 			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
+//			cliente.enviarDatos(cadena);
+//			cadena = darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p";
+//			cliente.enviarDatos(cadena);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -242,23 +271,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	
 
-	public void recibirPosiciones(String cadena) {
-		if(cadena.charAt(cadena.length()-1) == 'p') {
-			String arr[] = cadena.split(" ");			
-			darMapa().getPelota().setPosicionX(Integer.parseInt(arr[0]));
-			darMapa().getPelota().setPosicionY(Integer.parseInt(arr[1]));
-		}
-		else {
-			
-			String arr[] = cadena.split(" ");
-			//System.out.println(arr[2]);
-			int posicion = Integer.parseInt(arr[2]);
-			darPersonajes()[posicion].setPosicionX(Integer.parseInt(arr[0]));
-			darPersonajes()[posicion].setPosicionY(Integer.parseInt(arr[1]));
-			darPersonajes()[posicion].setRutaImagen(arr[3]);
-		}
-		refrescar();
-	}
+
 
 	public void iniciarHilos() {
 		iniciarColisionesGenerales();

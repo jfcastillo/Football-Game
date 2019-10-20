@@ -42,19 +42,28 @@ public class HiloLeerCliente extends Thread {
 				if (msg.contains("#idCliente")) {
 					cliente.setId(msg.split(" ")[1]);
 					cliente.setIdRecibido(true);
-					System.out.println("id "+cliente.getId());
+					System.out.println("recibi el id "+cliente.getId());
 					
 				}            	
-            	else {
-            		System.out.println("prueba"+msg); 
-            		cliente.recibirDatos(msg);
-            		
+            	else {            	
+            		System.out.println("Al cliente "+cliente.getNickName()+" le llego el mensaje "+msg);
+            		cliente.recibirDatos(msg);            		
             		
             	}
             } catch (IOException e) { 
 
                 e.printStackTrace(); 
-            } 
+            }
+//			try {
+//				in.close();
+//				out.close();
+//				br.close();
+//				bw.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
 		}
 	}
 	

@@ -172,25 +172,26 @@ public class Cliente {
 
 
 	public void enviarDatos(String cadena) throws IOException {
-		int idC = Integer.parseInt(id);
-		if (idC % 2 == 0) {
-			idC = 0;
-		}
-		else {
-			idC = 1;
-		}
-//		if(this.id.equals("0")) {
+//		int idC = Integer.parseInt(id);
+//		if (idC % 2 == 0) {
+//			idC = 0;
+//		}
+//		else {
+//			idC = 1;
+//		}
+////		if(this.id.equals("0")) {
+////			out.writeUTF(cadena+"#"+"1"); 
+////		}
+////		else if(this.id.equals("1")) {
+////			out.writeUTF(cadena+"#"+"0"); 
+////		}
+//		if(idC == 0) {
 //			out.writeUTF(cadena+"#"+"1"); 
 //		}
-//		else if(this.id.equals("1")) {
+//		else if(idC == 1) {
 //			out.writeUTF(cadena+"#"+"0"); 
 //		}
-		if(idC == 0) {
-			out.writeUTF(cadena+"#"+"1"); 
-		}
-		else if(idC == 1) {
-			out.writeUTF(cadena+"#"+"0"); 
-		}
+		out.writeUTF(cadena);
 	}
 	
 	public void recibirDatos(String cadena) {

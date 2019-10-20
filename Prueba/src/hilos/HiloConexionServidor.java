@@ -42,7 +42,11 @@ public class HiloConexionServidor implements Runnable{
 				out = new DataOutputStream(socketClient.getOutputStream());
 				String nameCliente = in.readUTF();
 				System.out.println("Nombre del cliente "+nameCliente);
-				out.writeUTF("#idCliente "+cantidadClientes);
+				int idCliente = 0;
+				if (cantidadClientes % 2 != 0) {
+					idCliente = 1;
+				}
+				out.writeUTF("#idCliente "+idCliente);
 				
 				
 								
@@ -51,13 +55,19 @@ public class HiloConexionServidor implements Runnable{
 //				Thread t = new Thread(clienteHandler);
 //				server.getAr().add(clienteHandler);
 //				t.start();
-				System.out.println("agrego cliente");
+				
 				server.addClient(nameCliente,clienteHandler);
 				
 				cantidadClientes++;
 				if (cantidadClientes % 2 == 0) {
-					HiloComunicacionServidor hiloCS = new HiloComunicacionServidor(server, server.getMapClients().get(server.getIdUltimoCliente()), clienteHandler)	;
+					System.out.println(server.getIdUltimoCliente());
+//					HiloComunicacionServidor hiloCS = new HiloComunicacionServidor(server, server.getMapClients().get(server.getIdUltimoCliente()), clienteHandler)	;
+//					hiloCS.start();
+					
+					HiloComunicacionServidor hiloCS = new HiloComunicacionServidor(server, server.getMapClients().get(server.getIdUltimoCliente()), clienteHandler.getName());
 					hiloCS.start();
+					HiloComunicacionServidor hiloCS1 = new HiloComunicacionServidor(server, clienteHandler, server.getIdUltimoCliente() );
+					hiloCS1.start();
 				}
 				
 				else {
