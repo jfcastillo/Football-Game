@@ -44,7 +44,9 @@ public class Cliente {
 	
 	//variables para el multicast UDP
 	protected MulticastSocket socketMulti = null;
-    protected byte[] buf = new byte[256];
+    protected byte[] buf = new byte[768];
+    
+    protected String [] datos;
     
     private HiloLeerCliente hiloLeer;
 	
@@ -62,6 +64,7 @@ public class Cliente {
 		isConnected = true;
 		direccionMovimiento = 0;
 		idRecibido = false;
+		datos = new String[2];
 		try {
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader( System.in));
@@ -108,25 +111,56 @@ public class Cliente {
 //	                } 
 //	            } 
 //	        });
+			
+//			Thread receiveMulti = new Thread(new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					// TODO Auto-generated method stub
+//
+//					try {
+//						socketMulti = new MulticastSocket(4446);
+//						InetAddress group = InetAddress.getByName("230.0.0.0");
+//						socketMulti.joinGroup(group);
+//						while (true) {
+//							DatagramPacket packet = new DatagramPacket(buf, buf.length);
+//							socketMulti.receive(packet);
+//							String received = new String(
+//									packet.getData(), 0, packet.getLength());
+//							if ("PUBLICIDAD".equals(received)) {
+//								System.out.println(received);
+//								break;
+//							}
+//						}
+//						socketMulti.leaveGroup(group);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//			        socketMulti.close();
+//				}
+//
+//
+//	        });
 	        
 	        Thread receiveMulti = new Thread(new Runnable() {
 
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					
+					int contador = 0;
 					try {
 						socketMulti = new MulticastSocket(4446);
 						InetAddress group = InetAddress.getByName("230.0.0.0");
 						socketMulti.joinGroup(group);
-						while (true) {
+						while (contador <2 ) {
 							DatagramPacket packet = new DatagramPacket(buf, buf.length);
 							socketMulti.receive(packet);
 							String received = new String(
 									packet.getData(), 0, packet.getLength());
-							if ("PUBLICIDAD".equals(received)) {
-								System.out.println(received);
-								break;
+							if (received != null) {
+								datos[contador]= received;
+								contador++;
 							}
 						}
 						socketMulti.leaveGroup(group);
@@ -135,6 +169,7 @@ public class Cliente {
 						e.printStackTrace();
 					}
 			        socketMulti.close();
+			        vPrincipal.activarPublicidad();
 				}
 	        	
 	        	
@@ -160,6 +195,9 @@ public class Cliente {
 		}
 	}
 	
+	public String[] getDatos() {
+		return datos;
+	}
 	
 	public boolean isConnected() {
 		return isConnected;

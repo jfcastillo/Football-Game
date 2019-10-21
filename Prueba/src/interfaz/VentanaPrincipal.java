@@ -74,6 +74,22 @@ public class VentanaPrincipal extends JFrame {
 		//juego = new Juego();
 	}
 
+	public void activarPublicidad() {
+		if(cliente.getDatos()[1] !=null) {
+			Publicidad p = new Publicidad(cliente.getDatos()[0], cliente.getDatos()[1]);
+//			Thread hilito = new Thread(new Runnable(){
+//				@Override
+//				public void run() {
+//					while(true) {
+//						p.repaint();
+//						
+//					}
+//				}
+//			});
+//			hilito.start();
+			
+		}
+	}
 	
 	public boolean isPlaying() {
 		return juego.isPlaying();

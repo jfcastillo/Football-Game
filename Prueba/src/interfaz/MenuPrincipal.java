@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class MenuPrincipal extends JFrame {
 
@@ -38,16 +37,10 @@ public class MenuPrincipal extends JFrame {
 	public static void main(String[] miString) {
 		MenuPrincipal a = new MenuPrincipal();
 		a.setVisible(true);
-
-		
-		
-		
-		
-		
 	}
 
 
-
+	
 
 
 	public void iniciarJuego(String nombreJugador) {

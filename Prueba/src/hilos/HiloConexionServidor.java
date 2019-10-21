@@ -9,7 +9,7 @@ import java.net.Socket;
 import modelo.ClientHandler;
 import modelo.Servidor;
 
-public class HiloConexionServidor implements Runnable{
+public class HiloConexionServidor extends Thread implements Runnable{
 	
 	private Servidor server;
 	private ServerSocket serverSocket;

@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -10,6 +11,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Vector;
+
+import javax.swing.ImageIcon;
 
 import hilos.HiloConexionServidor;
 
@@ -36,6 +39,8 @@ public class Servidor {
 	
 	private static DatagramSocket socketMulti;
     private static InetAddress group;
+    private static byte[] buf1;
+    private static byte[] buf2;
     private static byte[] buf;
     
     private String idUltimoCliente;
@@ -94,7 +99,7 @@ public class Servidor {
 			System.out.println("Servidor escuchando");
 			long tiempoIni = System.currentTimeMillis();
 			HiloConexionServidor hiloConexion = new HiloConexionServidor(server, serverSocket);
-			hiloConexion.run();
+			hiloConexion.start();
 //			while(true) {
 //				
 ////				socket = serverSocket.accept();
@@ -110,12 +115,37 @@ public class Servidor {
 ////				ar.add(clienteHandler);
 ////				t.start();
 //			
+				Thread publicidad = new Thread(new Runnable() {
+					boolean stop = false;
+
+					@Override
+					public void run() {
+						
+						while(!stop) {
+						// TODO Auto-generated method stub
+							long tiempoFini = System.currentTimeMillis();
+							if(tiempoFini- tiempoIni >= 20000 && !stop) {
+								System.out.println("entreeeeeeeeeeee");
+								try {
+									//ImageIcon img = new ImageIcon("./resources/ads/coke.gif");
+									//FileInputStream audio = new FileInputStream("./resources/ads/coke.mp3");
+									multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								stop = true;
+							}
+						}
+					}
+					
+				});
 //				Thread publicidad = new Thread(new Runnable() {
 //					boolean stop = false;
 //
 //					@Override
 //					public void run() {
-//						
+//
 //						while(!stop) {
 //						// TODO Auto-generated method stub
 //							long tiempoFini = System.currentTimeMillis();
@@ -131,9 +161,10 @@ public class Servidor {
 //							}
 //						}
 //					}
-//					
+//
 //				});
-//				publicidad.start();
+				
+				publicidad.start();
 //			}
 	
 		} catch (IOException e) {
@@ -141,15 +172,28 @@ public class Servidor {
 		}		
 	}
 	
-	 public static void multicastPublisher(String multicastMessage) throws IOException {
+	 public static void multicastPublisher(String img, String fil) throws IOException {
 		        socketMulti = new DatagramSocket();
 		        group = InetAddress.getByName("230.0.0.0");
-		        buf = multicastMessage.getBytes();
-		 
-		        DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
-		        socketMulti.send(packet);
+		        buf1= img.getBytes();
+		        buf2= fil.getBytes();
+		        
+		        DatagramPacket packet1  = new DatagramPacket(buf1, buf1.length, group, 4446);
+		        DatagramPacket packet2  = new DatagramPacket(buf2, buf2.length, group, 4446);
+		        socketMulti.send(packet1);
+		        socketMulti.send(packet2);
 		        socketMulti.close();
 		    }
+	 
+//	 public static void multicastPublisher(String multicastMessage) throws IOException {
+//	        socketMulti = new DatagramSocket();
+//	        group = InetAddress.getByName("230.0.0.0");
+//	        buf = multicastMessage.getBytes();
+//
+//	        DatagramPacket packet  = new DatagramPacket(buf, buf.length, group, 4446);
+//	        socketMulti.send(packet);
+//	        socketMulti.close();
+//	    }
 
 
 	
