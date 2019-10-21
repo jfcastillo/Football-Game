@@ -115,31 +115,31 @@ public class Servidor {
 ////				ar.add(clienteHandler);
 ////				t.start();
 //			
-				Thread publicidad = new Thread(new Runnable() {
-					boolean stop = false;
-
-					@Override
-					public void run() {
-						
-						while(!stop) {
-						// TODO Auto-generated method stub
-							long tiempoFini = System.currentTimeMillis();
-							if(tiempoFini- tiempoIni >= 20000 && !stop) {
-								System.out.println("entreeeeeeeeeeee");
-								try {
-									//ImageIcon img = new ImageIcon("./resources/ads/coke.gif");
-									//FileInputStream audio = new FileInputStream("./resources/ads/coke.mp3");
-									multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								stop = true;
-							}
-						}
-					}
-					
-				});
+//				Thread publicidad = new Thread(new Runnable() {
+//					boolean stop = false;
+//
+//					@Override
+//					public void run() {
+//						
+//						while(!stop) {
+//						// TODO Auto-generated method stub
+//							long tiempoFini = System.currentTimeMillis();
+//							if(tiempoFini- tiempoIni >= 20000 && !stop) {
+//								System.out.println("entreeeeeeeeeeee");
+//								try {
+//									//ImageIcon img = new ImageIcon("./resources/ads/coke.gif");
+//									//FileInputStream audio = new FileInputStream("./resources/ads/coke.mp3");
+//									multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//								stop = true;
+//							}
+//						}
+//					}
+//					
+//				});
 //				Thread publicidad = new Thread(new Runnable() {
 //					boolean stop = false;
 //
@@ -164,7 +164,7 @@ public class Servidor {
 //
 //				});
 				
-				publicidad.start();
+				//publicidad.start();
 //			}
 	
 		} catch (IOException e) {

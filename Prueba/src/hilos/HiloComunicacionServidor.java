@@ -10,6 +10,7 @@ public class HiloComunicacionServidor extends Thread {
 	private Servidor server;
 	private ClientHandler cliente1;
 	private String idCliente2;
+	private HiloPublicidad hiloPu;
 //	private ClientHandler cliente2;
 //	public HiloComunicacionServidor(Servidor server, ClientHandler cliente1, ClientHandler cliente2) {
 //		super();
@@ -58,6 +59,7 @@ public class HiloComunicacionServidor extends Thread {
 		this.server = server;
 		this.cliente1 = cliente1;
 		this.idCliente2 = idCliente2;
+		hiloPu = new HiloPublicidad(0, 0);
 	}
 	@Override
 	public void run() {
@@ -70,6 +72,19 @@ public class HiloComunicacionServidor extends Thread {
 ////				String positions = cadena[0]; 
 ////            	String recipient = cadena[1]; 
 					server.getMapClients().get(idCliente2).getDos().writeUTF(msgCliente1);
+				}
+				else if (msgCliente1.contains("#tiempo")) {
+					String[] cadena = msgCliente1.split(" ");
+					int min = Integer.parseInt(cadena[1]);
+					int seg = Integer.parseInt(cadena[2]);
+					hiloPu.setMin(min);
+					hiloPu.setSeg(seg);
+					System.out.println("Asignandooo");
+
+				}
+				else if((hiloPu.getMin() == 1 || (hiloPu.getMin() == 2)) && hiloPu.getSeg() == 0) {
+					System.out.println("tiempoo");
+					hiloPu.multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
 				}
 				
 			} catch (IOException e) {
