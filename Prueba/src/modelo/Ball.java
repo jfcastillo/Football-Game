@@ -27,11 +27,11 @@ public class Ball extends Personaje implements Movible {
 			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 		if (direccion == 3) {
-			moverArriba(2);
+			moverArriba(DISTANCIA_QUE_SE_MUEVE_1);
 			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 		if (direccion == 4) {
-			moverAbajo(2);
+			moverAbajo(DISTANCIA_QUE_SE_MUEVE_1);
 			direccionActual(DISTANCIA_QUE_SE_MUEVE_1);
 		}
 	}
