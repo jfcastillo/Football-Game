@@ -4,19 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 
 
-public class PanelPublicidad extends JPanel {
+public class PanelPublicidad extends JPanel implements ActionListener{
 	private ImageIcon img;
 	private FileInputStream fil;
 	
@@ -29,6 +32,8 @@ public class PanelPublicidad extends JPanel {
 		setVisible(true);
 		img = new ImageIcon(gif);
 		fil = new FileInputStream(audio);
+		Timer temporizador  = new Timer(1, this);	
+		temporizador.start();
 			
 			
 		
@@ -49,6 +54,13 @@ public class PanelPublicidad extends JPanel {
 		Player apl = new Player(fil);
 
 		apl.play();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		repaint();
+		
 	}
 	
 	

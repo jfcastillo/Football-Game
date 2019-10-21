@@ -1,5 +1,7 @@
 package hilos;
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import interfaz.VentanaPrincipal;
@@ -27,6 +29,15 @@ public class HiloTiempo extends Thread {
 				
 			}
 			crono.avanzar();
+			if (principal.getCliente().getId().equals("0")) {
+				try {
+					principal.getCliente().enviarDatos("#tiempo "+crono.getMinutos()+" "+crono.getSegundos());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 			principal.refrescarReloj(crono.getMinutos(),crono.getSegundos());
 			try {
 				this.sleep(DORMIR);

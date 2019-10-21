@@ -138,6 +138,12 @@ public class VentanaPrincipal extends JFrame {
 			darMapa().getPelota().setPosicionX(Integer.parseInt(arr[0]));
 			darMapa().getPelota().setPosicionY(Integer.parseInt(arr[1]));
 		}
+		else if(cadena.contains("#tiempo")) {
+			String[] msg = cadena.split(" ");
+			int minutos = Integer.parseInt(msg[1]);
+			int segundos = Integer.parseInt(msg[2]);
+			refrescarReloj(minutos, segundos);
+		}
 		else {			
 			String arr[] = cadena.split(" ");
 //			System.out.println(arr[2]);
@@ -291,8 +297,11 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarHilos() {
 		iniciarColisionesGenerales();
+		if (cliente.getId().equals("0")) {
+			iniciarHiloCronometro();
+		}
 	
-		iniciarHiloCronometro();
+		
 		
 		//iniciarColisionPelota();
 		
