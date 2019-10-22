@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import hilos.HiloContarPublicidad;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -22,6 +23,9 @@ import javazoom.jl.player.Player;
 public class PanelPublicidad extends JPanel implements ActionListener{
 	private ImageIcon img;
 	private FileInputStream fil;
+	private HiloContarPublicidad hiloContar;
+	private Publicidad pu;
+	private Player apl;
 	
 	public PanelPublicidad(String gif, String audio, Publicidad pu) throws FileNotFoundException {
 		this.setBackground(Color.BLACK);
@@ -34,6 +38,10 @@ public class PanelPublicidad extends JPanel implements ActionListener{
 		fil = new FileInputStream(audio);
 		Timer temporizador  = new Timer(1, this);	
 		temporizador.start();
+		this.pu = pu;
+		hiloContar = new HiloContarPublicidad(pu.getvPrincipal());
+		hiloContar.start();
+		
 			
 			
 		
@@ -51,9 +59,13 @@ public class PanelPublicidad extends JPanel implements ActionListener{
 	
 	public void reproducirMusica() throws FileNotFoundException, JavaLayerException {
 
-		Player apl = new Player(fil);
+		apl = new Player(fil);
 
 		apl.play();
+	}
+	public void detenerMusica() {
+		hiloContar.setStop(true);
+		apl.close();
 	}
 
 	@Override

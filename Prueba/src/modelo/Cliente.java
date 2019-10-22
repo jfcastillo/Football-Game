@@ -52,6 +52,8 @@ public class Cliente {
 	
 	private VentanaPrincipal vPrincipal;
 	
+	private int contadorPublicidad;
+	
 	/**
 	 * Main
 	 * @param args
@@ -65,6 +67,7 @@ public class Cliente {
 		direccionMovimiento = 0;
 		idRecibido = false;
 		datos = new String[2];
+		contadorPublicidad = 0;
 		try {
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader( System.in));
@@ -195,6 +198,20 @@ public class Cliente {
 		}
 	}
 	
+	
+	
+	public int getContadorPublicidad() {
+		return contadorPublicidad;
+	}
+
+
+
+	public void setContadorPublicidad(int contadorPublicidad) {
+		this.contadorPublicidad += contadorPublicidad;
+	}
+
+
+
 	public String[] getDatos() {
 		return datos;
 	}

@@ -42,11 +42,11 @@ public class HiloLeerCliente extends Thread {
 				if (msg.contains("#idCliente")) {
 					cliente.setId(msg.split(" ")[1]);
 					cliente.setIdRecibido(true);
-					System.out.println("recibi el id "+cliente.getId());
+//					System.out.println("recibi el id "+cliente.getId());
 					
 				}            	
             	else {            	
-            		System.out.println("Al cliente "+cliente.getNickName()+" le llego el mensaje "+msg);
+//            		System.out.println("Al cliente "+cliente.getNickName()+" le llego el mensaje "+msg);
             		cliente.recibirDatos(msg);            		
             		
             	}

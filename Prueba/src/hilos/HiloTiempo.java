@@ -29,7 +29,7 @@ public class HiloTiempo extends Thread {
 				
 			}
 			crono.avanzar();
-			if (principal.getCliente().getId().equals("0")) {
+			if (principal.getCliente().getId().equals("1")) {
 				try {
 					principal.getCliente().enviarDatos("#tiempo "+crono.getMinutos()+" "+crono.getSegundos());
 				} catch (IOException e) {
@@ -48,11 +48,23 @@ public class HiloTiempo extends Thread {
 
 			if(crono.getMinutos()==1&&crono.getSegundos()==0) {
 			principal.reiniciarTodo();
-			JOptionPane.showMessageDialog(principal, "Se termina el primer tiempo.");
+			principal.mostrarMensajes(1);
+			try {
+				principal.getCliente().enviarDatos("#segundoTiempo");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			principal.segundoTiempo();
 			}
 			if(crono.getMinutos()==2) {
-				JOptionPane.showMessageDialog(principal,"Se termina el partido.");
+				try {
+					principal.getCliente().enviarDatos("#termino");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				principal.mostrarMensajes(2);
 				principal.terminarPartido();
 				terminar=true;
 			}

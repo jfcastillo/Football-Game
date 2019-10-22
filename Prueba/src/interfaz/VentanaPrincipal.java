@@ -76,7 +76,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void activarPublicidad() {
 		if(cliente.getDatos()[1] !=null) {
-			Publicidad p = new Publicidad(cliente.getDatos()[0], cliente.getDatos()[1]);
+			Publicidad p = new Publicidad(cliente.getDatos()[0], cliente.getDatos()[1], this);
 //			Thread hilito = new Thread(new Runnable(){
 //				@Override
 //				public void run() {
@@ -144,6 +144,13 @@ public class VentanaPrincipal extends JFrame {
 			int segundos = Integer.parseInt(msg[2]);
 			refrescarReloj(minutos, segundos);
 		}
+		else if (cadena.contains("#segundoTiempo")) {
+			mostrarMensajes(1);
+		}
+		else if (cadena.contains("#termino")) {
+			mostrarMensajes(2);
+			terminarPartido();
+		}
 		else {			
 			String arr[] = cadena.split(" ");
 //			System.out.println(arr[2]);
@@ -201,7 +208,7 @@ public class VentanaPrincipal extends JFrame {
 			{
 				setGolesDerecha();
 			}
-			else if(posx>=1100 && (posy>=220 && posy<=410))
+			else if(posx>=1080 && (posy>=220 && posy<=410))
 			{
 				setGolesIzquierda();
 			}
@@ -297,7 +304,7 @@ public class VentanaPrincipal extends JFrame {
 
 	public void iniciarHilos() {
 		iniciarColisionesGenerales();
-		if (cliente.getId().equals("0")) {
+		if (cliente.getId().equals("1")) {
 			iniciarHiloCronometro();
 		}
 	
@@ -387,7 +394,16 @@ public class VentanaPrincipal extends JFrame {
 
 	public void terminarPartido() {
 		panelGoles.TerminarPartido();
+		JOptionPane.showMessageDialog(this, "Segundos de publicidad visto "+cliente.getContadorPublicidad());
 		
+	}
+	public void mostrarMensajes(int id) {
+		if (id == 1) {
+			JOptionPane.showMessageDialog(this, "Se termina el primer tiempo.");
+		}
+		else {
+			JOptionPane.showMessageDialog(this,"Se termina el partido.");
+		}
 	}
 
 	

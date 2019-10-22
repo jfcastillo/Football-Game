@@ -3,21 +3,28 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javazoom.jl.decoder.JavaLayerException;
 
-public class Publicidad extends JFrame{
+public class Publicidad extends JFrame implements ActionListener{
+	public static final String CERRAR = "cerrar"; 
+		private VentanaPrincipal vPrincipal;
 
 		private PanelPublicidad panelPublicidad;
-		private PanelBotones but;
+		private JButton btnCerrar;
+//		private
 		
 
 		
-		public Publicidad(String gif, String audio) {
+		public Publicidad(String gif, String audio, VentanaPrincipal vPrincipal) {
+			this.vPrincipal = vPrincipal;
 			this.setBackground(Color.BLACK);
 			this.setLayout(new BorderLayout());
 			try {
@@ -37,12 +44,42 @@ public class Publicidad extends JFrame{
 			this.setTitle("PUBLICIDAD NO-PREPAGADA");
 			setVisible(true);
 			panelPublicidad.setVisible(true);
+			btnCerrar = new JButton("Cerrar publicidad");
+			btnCerrar.addActionListener(this);
+			btnCerrar.setActionCommand(CERRAR);
+			add(btnCerrar, BorderLayout.SOUTH);
 			pack();
 			try {
 				panelPublicidad.reproducirMusica();
 			} catch (FileNotFoundException | JavaLayerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			
+		}
+
+
+
+		public VentanaPrincipal getvPrincipal() {
+			return vPrincipal;
+		}
+
+
+
+		public void setvPrincipal(VentanaPrincipal vPrincipal) {
+			this.vPrincipal = vPrincipal;
+		}
+
+
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String command = e.getActionCommand();
+			if (command.equals(CERRAR)) {
+				panelPublicidad.detenerMusica();
+				this.dispose();
+				
 			}
 			
 		}
