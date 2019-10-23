@@ -50,7 +50,7 @@ public class HiloConexionServidor extends Thread implements Runnable{
 				
 				
 								
-				ClientHandler clienteHandler = new ClientHandler(socketClient, nameCliente, in, out);
+				ClientHandler clienteHandler = new ClientHandler(socketClient, nameCliente, in, out, idCliente);
 				
 //				Thread t = new Thread(clienteHandler);
 //				server.getAr().add(clienteHandler);

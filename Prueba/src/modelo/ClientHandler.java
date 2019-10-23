@@ -17,9 +17,9 @@ public class ClientHandler implements Runnable
     private boolean nombreEnviado;
     private String positions;
     private String recipient;
-      
+    private int id;
     // constructor 
-    public ClientHandler(Socket s, String name, DataInputStream dis, DataOutputStream dos) { 
+    public ClientHandler(Socket s, String name, DataInputStream dis, DataOutputStream dos, int id) { 
         this.dis = dis; 
         this.dos = dos; 
         this.name = name; 
@@ -28,6 +28,7 @@ public class ClientHandler implements Runnable
         nombreEnviado = false;
         positions = "";
         recipient = "";
+        this.id = id;
     } 
     
     
@@ -101,6 +102,20 @@ public class ClientHandler implements Runnable
 	}
 	
 	
+
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 
 

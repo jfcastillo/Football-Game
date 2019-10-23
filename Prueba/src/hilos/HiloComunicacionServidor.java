@@ -48,6 +48,10 @@ public class HiloComunicacionServidor extends Thread {
 						System.out.println("tiempoo");
 						hiloPu.multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
 					}
+					if((hiloPu.getMin() == 0) && hiloPu.getSeg() == 0 && cliente1.getId() == 0) {
+						System.out.println("tiempoo");
+						hiloPu.multicastPublisher("./resources/ads/coke.gif", "./resources/ads/coke.mp3");
+					}
 				}
 				
 				
