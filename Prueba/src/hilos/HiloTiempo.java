@@ -59,13 +59,22 @@ public class HiloTiempo extends Thread {
 			}
 			if(crono.getMinutos()==2) {
 				try {
-					principal.getCliente().enviarDatos("#termino");
+					String cadena = "";
+					if (principal.getCliente().getId().equals("1")) {
+//						cadena = "#termino "+principal.getCliente().getNickName()+" "+principal.getPanelGoles().getDerecha();
+						cadena = "#termino "+principal.getCliente().getNickName()+" "+principal.getCliente().getContadorPublicidad();
+						principal.getCliente().enviarDatos(cadena);
+					}
+					else {
+//						cadena = "#termino "+principal.getCliente().getNickName()+" "+principal.getPanelGoles().getIzquierda();
+					}
+					principal.getCliente().enviarDatos(cadena);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				principal.mostrarMensajes(2);
-				principal.terminarPartido();
+//				principal.terminarPartido();
 				terminar=true;
 			}
 

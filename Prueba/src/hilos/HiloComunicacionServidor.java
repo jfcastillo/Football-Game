@@ -22,6 +22,7 @@ public class HiloComunicacionServidor extends Thread {
 		this.cliente1 = cliente1;
 		this.idCliente2 = idCliente2;
 		hiloPu = new HiloPublicidad(0, 0);
+		
 	}
 	@Override
 	public void run() {

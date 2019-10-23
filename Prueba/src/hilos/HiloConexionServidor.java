@@ -63,7 +63,8 @@ public class HiloConexionServidor extends Thread implements Runnable{
 					System.out.println(server.getIdUltimoCliente());
 //					HiloComunicacionServidor hiloCS = new HiloComunicacionServidor(server, server.getMapClients().get(server.getIdUltimoCliente()), clienteHandler)	;
 //					hiloCS.start();
-					
+//					out.writeUTF("#nickname "+server.getIdUltimoCliente());
+//					server.getMapClients().get(server.getIdUltimoCliente()).getDos().writeUTF("#nickname "+clienteHandler.getName());
 					HiloComunicacionServidor hiloCS = new HiloComunicacionServidor(server, server.getMapClients().get(server.getIdUltimoCliente()), clienteHandler.getName());
 					hiloCS.start();
 					HiloComunicacionServidor hiloCS1 = new HiloComunicacionServidor(server, clienteHandler, server.getIdUltimoCliente() );

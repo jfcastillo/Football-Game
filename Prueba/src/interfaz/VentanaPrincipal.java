@@ -31,6 +31,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	private Cliente cliente;
 	
+	private HiloPatearPelota hiloPatear;
 	/**
 	 * Constante que representa el nombre del juego
 	 */
@@ -73,6 +74,27 @@ public class VentanaPrincipal extends JFrame {
 //		setVisible(true);
 		//juego = new Juego();
 	}
+	
+
+	public PanelGoles getPanelGoles() {
+		return panelGoles;
+	}
+
+
+	public void setPanelGoles(PanelGoles panelGoles) {
+		this.panelGoles = panelGoles;
+	}
+
+
+	public HiloPatearPelota getHiloPatear() {
+		return hiloPatear;
+	}
+
+
+	public void setHiloPatear(HiloPatearPelota hiloPatear) {
+		this.hiloPatear = hiloPatear;
+	}
+
 
 	public void activarPublicidad() {
 		if(cliente.getDatos()[1] !=null) {
@@ -148,9 +170,42 @@ public class VentanaPrincipal extends JFrame {
 			mostrarMensajes(1);
 		}
 		else if (cadena.contains("#termino")) {
+			String cadenas = "";
+			if (getCliente().getId().equals("0")) {
+				cadenas = "#termino "+getCliente().getNickName()+" "+cliente.getContadorPublicidad();
+			}
+			
+			String[] msg = cadenas.split(" ");
 			mostrarMensajes(2);
-			terminarPartido();
+			terminarPartido(msg[1], msg[2]);
 		}
+		else if (cadena.contains("#nickname ")) {
+			String nick = cadena.split(" ")[1];
+			if (cliente.getId().equals("0")) {
+				
+				panelGoles.setNomJug2(nick);
+				try {
+					cliente.enviarDatos("#nickname "+cliente.getNickName());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else {
+				panelGoles.setNomJug1(nick);
+			}
+		}
+		else if(cadena.contains("#gol")) {
+			String[] msg = cadena.split(" ");
+			if (msg[1].equals("derecha")) {
+				setGolesDerecha(msg[2]);
+			}
+			else if (msg[1].equals("izquierda")) {
+				setGolesIzquierda(msg[2]);
+			}
+		}
+		
+		 
 		else {			
 			String arr[] = cadena.split(" ");
 //			System.out.println(arr[2]);
@@ -179,11 +234,11 @@ public class VentanaPrincipal extends JFrame {
 	 * Método que mueve el personaje
 	 */
 	public void moverJugador(int direccion) {//-----------------------------------------------------------
-		System.out.println(Integer.parseInt(cliente.getId()));
+//		System.out.println(Integer.parseInt(cliente.getId()));
 		juego.mover(direccion, Integer.parseInt(cliente.getId()));
 		
 		try {
-			System.out.println("ventana: "+darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
+//			System.out.println("ventana: "+darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
 //			String cadena = darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+" "+darPersonaje().getRutaImagen();
 			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
 			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
@@ -207,10 +262,16 @@ public class VentanaPrincipal extends JFrame {
 			if(posx==160 && (posy>=220 && posy<=416))
 			{
 				setGolesDerecha();
+				if (hiloPatear != null) {
+					hiloPatear.setStop(true);
+				}
 			}
 			else if(posx>=1080 && (posy>=220 && posy<=410))
 			{
 				setGolesIzquierda();
+				if (hiloPatear != null) {
+					hiloPatear.setStop(true);
+				}
 			}
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
@@ -239,21 +300,44 @@ public class VentanaPrincipal extends JFrame {
 	{
 		darMarcador()[0]+=1;
 		String g = Integer.toString(darMarcador()[0]);
+		System.out.println("goles derecha: "+g);
 		panelGoles.setDerecha(g);
 		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+		try {
+			cliente.enviarDatos("#gol derecha "+panelGoles.getDerecha().getText());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		reiniciarTodo();
 		
+	}
+	public void setGolesDerecha(String g)
+	{
+		panelGoles.setDerecha(g);
 	}
 	
 	public void setGolesIzquierda()
 	{
 		darMarcador()[1]+=1;
-		String g = Integer.toString(darMarcador()[0]);
+		String g = Integer.toString(darMarcador()[1]);
+		System.out.println("goles derecha: "+g);
 		panelGoles.setIzquierda(g);
 		reiniciarBalon();
 		JOptionPane.showMessageDialog(this, "GOOOOOOOLLL");
+		try {
+			cliente.enviarDatos("#gol izquierda "+panelGoles.getIzquierda().getText());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		reiniciarTodo();
+	}
+
+	public void setGolesIzquierda(String g)
+	{
+		panelGoles.setIzquierda(g);
 	}
 
 
@@ -270,6 +354,12 @@ public class VentanaPrincipal extends JFrame {
 		this.juego.getPersonaje()[0].setPosicionY(Personaje.Y_INICIAL);
 		this.juego.getPersonaje()[1].setPosicionY(Personaje.Y_INICIAL);
 		this.juego.getPersonaje()[1].setTieneBalon(false);
+		try {
+			cliente.enviarDatos(darPersonaje().getPosicionX()+" "+darPersonaje().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ " "+darPersonaje().getRutaImagen());
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		refrescar();
 		
 	}
@@ -279,6 +369,15 @@ public class VentanaPrincipal extends JFrame {
 		Dimension size = getSize();
 		darBall().setPosicionX(Ball.X_INICIAL_BALON);
 		darBall().setPosicionY(Ball.Y_INICIAL_BALON);
+		try {
+			cliente.enviarDatos(darMapa().getPelota().getPosicionX()+" "+darMapa().getPelota().getPosicionY()+ " "+Integer.parseInt(cliente.getId())+ "p");
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		refrescar();
 		
 	}
@@ -306,6 +405,13 @@ public class VentanaPrincipal extends JFrame {
 		iniciarColisionesGenerales();
 		if (cliente.getId().equals("1")) {
 			iniciarHiloCronometro();
+			System.out.println("#nickname "+cliente.getNickName());
+			try {
+				cliente.enviarDatos("#nickname "+cliente.getNickName());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	
 		
@@ -332,8 +438,8 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void iniciarPatearPelota() {
-		HiloPatearPelota hiloPa = new HiloPatearPelota(darPersonajes(), this, darMapa().getPelota(), Integer.parseInt(cliente.getId()));
-		hiloPa.start();
+		hiloPatear = new HiloPatearPelota(darPersonajes(), this, darMapa().getPelota(), Integer.parseInt(cliente.getId()));
+		hiloPatear.start();
 	}
 		
 
@@ -392,9 +498,49 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 
-	public void terminarPartido() {
+	public void terminarPartido(String nick2, String publicidad) {
 		panelGoles.TerminarPartido();
-		JOptionPane.showMessageDialog(this, "Segundos de publicidad visto "+cliente.getContadorPublicidad());
+		String mensaje = "";
+		int gIzq = Integer.parseInt(panelGoles.getIzquierda().getText()+"");
+		int gDer = Integer.parseInt(panelGoles.getDerecha().getText()+"");
+		if (gDer > gIzq) {
+			mensaje += "Ganó "+panelGoles.getNomJug2().getText()+"\n";
+//			if (cliente.getId().equals("0")) {
+//				mensaje += "Ganó "+panelGoles.getNomJug2()+"\n";
+//			}
+//			else {
+//				mensaje += "Ganó "+nick2+" \n";
+//			}
+		}
+		else if (gDer < gIzq) {
+			mensaje += "Ganó "+panelGoles.getNomJug1().getText()+" \n";
+//			if (cliente.getId().equals("0")) {
+//				mensaje += "Ganó "+cliente.getNickName()+" \n";
+//			}
+//			else {
+//				mensaje += "Ganó "+nick2+" \n";
+//			}
+		}
+		else {
+			mensaje += "Empate"+" \n";
+		}
+		mensaje += "Goles de "+panelGoles.getNomJug1().getText()+" "+ panelGoles.getIzquierda().getText()+"\n";
+//		if (nick2.equals(panelGoles.getNomJug1().getText())) {
+//			mensaje += "Segundos de publicidad visto " +publicidad+"\n";
+//		}
+//		else {
+//			mensaje += "Segundos de publicidad visto " +cliente.getContadorPublicidad()+"\n";
+//		}
+		mensaje += "Goles de "+panelGoles.getNomJug2().getText()+" "+ panelGoles.getDerecha().getText()+"\n";
+		mensaje += "Segundos de publicidad visto " +cliente.getContadorPublicidad()+"\n";
+//		if (nick2.equals(panelGoles.getNomJug2().getText())) {
+//			mensaje += "Segundos de publicidad visto " +publicidad;
+//		}
+//		else {
+//			mensaje += "Segundos de publicidad visto " +cliente.getContadorPublicidad();
+//		}
+		
+		JOptionPane.showMessageDialog(this, mensaje);
 		
 	}
 	public void mostrarMensajes(int id) {

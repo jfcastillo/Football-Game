@@ -10,18 +10,20 @@ public class HiloPatearPelota extends Thread {
 	private VentanaPrincipal vPrincipal;
 	private Ball pelota;
 	private int id;
+	private boolean stop;
 
 	public HiloPatearPelota(Personaje []personajes, VentanaPrincipal vPrincipal, Ball pelota, int id) {
 		this.personajes = personajes;
 		this.vPrincipal = vPrincipal;
 		this.pelota = pelota;
 		this.id = id;
+		stop = false;
 	}
 	@Override
 	public void run() {
-		boolean si = true;
+//		boolean si = true;
 		int c = 0;
-		while(si) {
+		while(!stop) {
 			
 				
 //				vPrincipal.patearPelota();
@@ -35,7 +37,7 @@ public class HiloPatearPelota extends Thread {
 				}
 				c++;
 				if (c==20) {
-					si = false;
+					stop = true;
 				}
 			
 			
@@ -43,7 +45,14 @@ public class HiloPatearPelota extends Thread {
 		personajes[id].setTieneBalon(false);
 		
 	}
+	public boolean isStop() {
+		return stop;
+	}
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
 
+	
 	
 
 }

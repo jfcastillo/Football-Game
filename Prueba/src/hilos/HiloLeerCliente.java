@@ -42,6 +42,9 @@ public class HiloLeerCliente extends Thread {
 				if (msg.contains("#idCliente")) {
 					cliente.setId(msg.split(" ")[1]);
 					cliente.setIdRecibido(true);
+//					if (msg.split(" ")[1].equals("1")) {
+//						cliente.enviarDatos("#nickname "+cliente.getNickName());
+//					}
 //					System.out.println("recibi el id "+cliente.getId());
 					
 				}            	
@@ -51,7 +54,15 @@ public class HiloLeerCliente extends Thread {
             		
             	}
             } catch (IOException e) { 
-
+    			try {
+				in.close();
+				out.close();
+				br.close();
+				bw.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
                 e.printStackTrace(); 
             }
 //			try {
