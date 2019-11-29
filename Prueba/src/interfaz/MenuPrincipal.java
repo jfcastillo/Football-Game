@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends JFrame {
 
@@ -20,7 +21,7 @@ public class MenuPrincipal extends JFrame {
 		panelBanner= new PanelBanner(this);
 		panelBotones=new PanelBotones(this);
 		this.setResizable(false);
-		this.setSize(new Dimension(600,650));
+		this.setSize(new Dimension(750,650));
 		this.setTitle("Fifa 2000");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.add(panelBanner,BorderLayout.NORTH);
@@ -67,6 +68,15 @@ public class MenuPrincipal extends JFrame {
 
 
 	public void creditos() {
+		JOptionPane.showMessageDialog(this, "Alexis Bonilla"+"\n"+ "Camilo Olano" + "\n"+"Daniel Guzmán"+"\n"+"Felipe Castillo");
+		
+	}
+
+
+
+
+
+	public void inteligenciaArtificial() {
 		// TODO Auto-generated method stub
 		
 	}
