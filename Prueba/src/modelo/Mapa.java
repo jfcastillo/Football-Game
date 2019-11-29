@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Random;
 
+import interfaz.VentanaPrincipal;
+
 /**
  * Esta clase se encarga leer los objetos y guardarlos
  **/
@@ -72,7 +74,10 @@ public class Mapa{
 	 * Constructor de la clase Mapa. Se encarga de inicializar las relaciones y
 	 * atributos de la clase.
 	 */
-	public Mapa() {
+	
+	private VentanaPrincipal vp;
+	public Mapa( VentanaPrincipal vp) {
+		this.vp=vp;
 		primerObjetoMapa = null;
 	//	primerEnemigo = null;
 		cantidadObjetos = 0;
@@ -185,10 +190,10 @@ public class Mapa{
 //			break;
 		case '*':
 			o = new Personaje(Personaje.X_INICIAL_JUG1, Personaje.Y_INICIAL, Personaje.IMAGEN3, 0);
-			
 			break;
 		case '#':
 			o = new Personaje(Personaje.X_INICIAL_JUG2, Personaje.Y_INICIAL, Personaje.IMAGEN2ROTADA, 1);
+			
 			break;
 		}
 
@@ -208,11 +213,14 @@ public class Mapa{
 			}
 			if (o instanceof Personaje && ((Personaje) o).getId() == 1) {
 				personajes[1] = (Personaje) o;
+				vp.setPertsonajeAI(personajes[1]);
+
 			}
 			if (o instanceof Ball) {
 				pelota = (Ball) o;
 			}
 		}
+		
 	}
 
 	/**

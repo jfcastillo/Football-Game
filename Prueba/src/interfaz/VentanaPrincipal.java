@@ -1,12 +1,18 @@
 package interfaz;
 
+
+
+//ggggggggg
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageFilter;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import AI.AI;
 import hilos.HiloColisionesGenerales;
 import hilos.HiloPatearPelota;
 import hilos.HiloPintar;
@@ -21,7 +27,9 @@ import modelo.Personaje;
 /**
  * Esta clase representa la clase ventanaPrincipal
  */
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal extends JFrame implements Runnable{
+	
+	private AI ai;
 	
 	private Mapa juego;
 
@@ -32,6 +40,9 @@ public class VentanaPrincipal extends JFrame {
 	private Cliente cliente;
 	
 	private HiloPatearPelota hiloPatear;
+	
+	private Personaje AI;
+	
 	/**
 	 * Constante que representa el nombre del juego
 	 */
@@ -66,6 +77,7 @@ public class VentanaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		panelJuego = new PanelJuego(this);
 		panelGoles = new PanelGoles(this);
+
 		
 		setLocationRelativeTo(null);
 		add(panelJuego, BorderLayout.CENTER);
@@ -76,6 +88,22 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 
+	public void setPertsonajeAI(Personaje a)
+	{
+		AI=a;
+	}
+	
+	public void asignarIA(Personaje p)
+	{
+		ai = new AI(p,darBall(),this);
+	}
+	
+	public void startIa()
+	{
+//		Thread t = new Thread(ai);
+//		t.start();
+	}
+	
 	public PanelGoles getPanelGoles() {
 		return panelGoles;
 	}
@@ -122,10 +150,11 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void inicializarJuego(String nombreJugador) throws IOException {
-		juego = new Mapa();
+		juego = new Mapa(this);
 		juego.leerMapa();
 		setPlaying(true);
 		iniciarHilos();
+
 //		cliente.setNombre(nombreJugador);
 		if(Integer.parseInt(cliente.getId())==-1||Integer.parseInt(cliente.getId())==0) {
 			panelGoles.setNomJug1(nombreJugador);
@@ -135,7 +164,11 @@ public class VentanaPrincipal extends JFrame {
 		}
 		System.out.println("--"+nombreJugador);
 
-	
+		if(AI!=null)
+		{
+			asignarIA(AI);
+
+		}
 		
 		
 	}
@@ -414,8 +447,8 @@ public class VentanaPrincipal extends JFrame {
 			}
 		}
 	
-		
-		
+
+
 		//iniciarColisionPelota();
 		
 	}
@@ -428,6 +461,15 @@ public class VentanaPrincipal extends JFrame {
 		crono.start();
 		
 		
+	}
+	
+	public void hiloIA()
+	{
+		if(AI!=null)
+		{
+			Thread t = new Thread(this);
+			t.start();
+		}
 	}
 	
 	public void iniciarColisionesGenerales() {
@@ -549,6 +591,40 @@ public class VentanaPrincipal extends JFrame {
 		}
 		else {
 			JOptionPane.showMessageDialog(this,"Se termina el partido.");
+		}
+	}
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		while(true)
+		{
+		if(darBall().getPosicionX()>AI.ANCHO/2)
+		{
+			moverJugador(1);
+		}
+		else if(darBall().getPosicionX()<AI.ANCHO/2)
+		{
+			moverJugador(2);
+		}
+			
+		else if(darBall().getPosicionY()>AI.ALTO)
+		{
+			moverJugador(3);
+		}
+		else if(darBall().getPosicionY()<AI.ALTO)
+		{
+			moverJugador(4);
+		}
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();				
+			}
+			
 		}
 	}
 

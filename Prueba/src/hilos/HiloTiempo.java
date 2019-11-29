@@ -26,7 +26,10 @@ public class HiloTiempo extends Thread {
 		while(!terminar) {
 			if(crono.getMinutos()==0&&crono.getSegundos()==0) {
 				JOptionPane.showMessageDialog(principal, "El partido va a iniciar, presione ok cuando esté listo.");
-				
+
+					
+					principal.hiloIA();
+
 			}
 			crono.avanzar();
 			if (principal.getCliente().getId().equals("1")) {

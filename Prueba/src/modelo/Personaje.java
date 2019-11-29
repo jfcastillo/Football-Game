@@ -284,6 +284,8 @@ public class Personaje extends Imagen implements Movible{
 	@Override
 	public void mover(int direccion) {
 
+		
+		
 		if (direccion == 1) {
 			moverIzquierda(DISTANCIA_QUE_SE_MUEVE_1);
 			if (getRutaImagen().equals(IMAGEN3)) {
